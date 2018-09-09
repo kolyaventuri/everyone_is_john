@@ -1,9 +1,11 @@
-import {add, subtract} from './module';
+import {render} from 'react-dom';
 
-const resultA = add(2, 3);
-const resultB = subtract(5, 1);
+// eslint-disable-next-line no-unused-vars
+const MainApp = () => (
+  <h1>Hello React!</h1>
+);
 
-console.log(resultA, resultB);
+render(<MainApp />, document.getElementById('app'));
 
 if (module.hot) {
   module.hot.accept();

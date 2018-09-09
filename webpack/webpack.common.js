@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(process.cwd(), 'src/index.js'),
+  entry: [
+    'webpack-hot-middleware/client?path=/reload=true',
+    path.join(process.cwd(), 'src/index.js')
+  ],
   module: {
     rules: [
       {
@@ -17,6 +20,9 @@ module.exports = {
           },
           {
             loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          },
+          {
+            loader: 'sass-loader'
           }
         ]
       }
@@ -26,6 +32,5 @@ module.exports = {
     filename: 'bundle.js',
     path: path.join(process.cwd(), 'public/javascripts'),
     publicPath: '/javascripts'
-  },
-  target: 'web'
+  }
 };

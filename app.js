@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
-import sassMiddleware from 'node-sass-middleware';
 // Favicon: import favicon from 'serve-favicon';
 
 import webpackDevServer from './webpack/dev-server';
@@ -24,12 +23,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cookieParser());
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
-}));
+
+if (process.env.NODE_ENV !== 'production') {
+  webpackDevServer(app);
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -56,9 +54,5 @@ process.on('uncaughtException', err => {
   debugLogger('Caught exception: %j', err);
   process.exit(1);
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  webpackDevServer(app);
-}
 
 export default app;
