@@ -7,6 +7,7 @@ import logger from 'morgan';
 import sassMiddleware from 'node-sass-middleware';
 // Favicon: import favicon from 'serve-favicon';
 
+import webpackDevServer from './webpack/dev-server';
 import index from './routes';
 
 const app = express();
@@ -55,5 +56,9 @@ process.on('uncaughtException', err => {
   debugLogger('Caught exception: %j', err);
   process.exit(1);
 });
+
+if (process.env.NODE_ENV !== 'production') {
+  webpackDevServer(app);
+}
 
 export default app;

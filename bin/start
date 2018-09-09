@@ -8,8 +8,8 @@
  */
 
 // enables ES6 ('import'.. etc) in Node
-require('babel-core/register');
-require('babel-polyfill');
+require('@babel/register');
+require('@babel/polyfill');
 
 const app = require('../app').default;
 const debug = require('debug')('everyone-is-john:server');
