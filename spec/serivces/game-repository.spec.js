@@ -25,7 +25,7 @@ describe('GameRepository', () => {
       repo.insert(game);
     };
 
-    expect(fn).toThrow();
+    expect(fn).toThrow('Game already exists.');
 
     expect(repo.count).toEqual(1);
   });

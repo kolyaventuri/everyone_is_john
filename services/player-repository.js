@@ -1,17 +1,3 @@
-export default class PlayerRepository {
-  constructor() {
-    this._players = {};
-  }
+import Repository from './repository';
 
-  insert(player) {
-    if (this._players[player.id]) {
-      throw new Error('Player already exists.');
-    }
-
-    this._players[player.id] = player;
-  }
-
-  get count() {
-    return Object.keys(this._players).length;
-  }
-}
+export default class PlayerRepository extends Repository {}

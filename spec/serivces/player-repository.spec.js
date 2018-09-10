@@ -25,7 +25,7 @@ describe('PlayerRepository', () => {
       repo.insert(player);
     };
 
-    expect(fn).toThrow();
+    expect(fn).toThrow('Player already exists.');
 
     expect(repo.count).toEqual(1);
   });
