@@ -10,7 +10,8 @@ describe('Game', () => {
   test('it has an ID', () => {
     expect(game.id).not.toBeNull();
 
-    expect(game.id).toEqual(expect.any(Number));
+    expect(game.id).toEqual(expect.any(String));
+    expect(game.id).toHaveLength(5);
   });
 
   test('it has a slug', () => {

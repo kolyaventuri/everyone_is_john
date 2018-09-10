@@ -1,8 +1,11 @@
+import Chance from 'chance';
 import Slug from '../lib/slug';
+
+const chance = new Chance();
 
 export default class Game {
   constructor() {
-    this._id = Math.floor(Math.random() * 1e5);
+    this._id = chance.string({length: 5, pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'});
     this._slug = Slug.random();
   }
 
