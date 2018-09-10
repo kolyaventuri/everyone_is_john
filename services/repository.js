@@ -11,6 +11,10 @@ export default class Repository {
     this._objects[obj.id] = obj;
   }
 
+  find(id) {
+    return this._objects[id];
+  }
+
   get count() {
     return Object.keys(this._objects).length;
   }

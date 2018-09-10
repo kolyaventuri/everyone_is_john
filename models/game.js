@@ -2,7 +2,7 @@ import Chance from 'chance';
 import Slug from '../lib/slug';
 import repos from '../services/repositories';
 
-const {gameRepository} = repos;
+const {gameRepository, playerRepository} = repos;
 
 const chance = new Chance();
 
@@ -26,6 +26,6 @@ export default class Game {
   }
 
   get owner() {
-    return null;
+    return playerRepository.find(this._owner);
   }
 }
