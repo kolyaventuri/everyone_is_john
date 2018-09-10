@@ -47,4 +47,15 @@ describe('Game', () => {
     expect(players).toContain(player3);
     expect(players).not.toContain(player2);
   });
+
+  test('can add players', () => {
+    const player = new Player(Math.random().toString());
+    const game2 = new Game(owner);
+
+    expect(game2.players).toHaveLength(0);
+
+    game2.addPlayer(player);
+
+    expect(game2.players).toHaveLength(1);
+  });
 });

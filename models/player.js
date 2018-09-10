@@ -1,7 +1,7 @@
 import Chance from 'chance';
 import repos from '../services/repositories';
 
-const {playerRepository} = repos;
+const {playerRepository, gameRepository} = repos;
 
 const chance = new Chance();
 
@@ -11,6 +11,12 @@ export default class Player {
     this._name = chance.name({middle: true, prefix: true});
 
     playerRepository.insert(this);
+  }
+
+  joinGame(gameId) {
+    const game = gameRepository.find(gameId);
+
+    game.addPlayer(this);
   }
 
   get id() {

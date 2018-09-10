@@ -1,4 +1,5 @@
 import Player from '../../models/player';
+import Game from '../../models/game';
 
 describe('Player', () => {
   let player = null;
@@ -27,5 +28,16 @@ describe('Player', () => {
     player.name = newName;
 
     expect(player.name).toEqual(newName);
+  });
+
+  test('can join a game', () => {
+    const owner = new Player('id');
+    const game = new Game(owner);
+
+    expect(game.players).toHaveLength(0);
+
+    player.joinGame(game.id);
+
+    expect(game.players).toHaveLength(1);
   });
 });

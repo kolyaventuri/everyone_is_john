@@ -17,6 +17,12 @@ export default class Game {
     gameRepository.insert(this);
   }
 
+  addPlayer(player) {
+    if (this._players.indexOf(player.id) < 0) {
+      this._players.push(player.id);
+    }
+  }
+
   get id() {
     return this._id;
   }
