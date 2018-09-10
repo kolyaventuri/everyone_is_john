@@ -50,6 +50,10 @@ describe('Player', () => {
     expect(player.game).toEqual(game);
   });
 
+  test('can have no game joined', () => {
+    expect(player.game).toBeNull();
+  });
+
   test('cannot join a game that doesn\'t exist', () => {
     const fn = () => {
       player.joinGame('nope');

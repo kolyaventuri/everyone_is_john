@@ -64,6 +64,17 @@ describe('Game', () => {
     expect(game.players).toHaveLength(1);
   });
 
+  test('cannot add player twice', () => {
+    const player = new Player('a');
+
+    expect(game.players).toHaveLength(0);
+
+    game.addPlayer(player);
+    game.addPlayer(player);
+
+    expect(game.players).toHaveLength(1);
+  });
+
   test('can kick players', () => {
     const player = new Player('a');
 
@@ -72,5 +83,18 @@ describe('Game', () => {
     game.kickPlayer(player);
 
     expect(game.players).toHaveLength(0);
+  });
+
+  test('cannot kick non-existant player', () => {
+    const player = new Player('a');
+    const player2 = new Player('b');
+
+    game.addPlayer(player);
+
+    expect(game.players).toHaveLength(1);
+
+    game.kickPlayer(player2);
+
+    expect(game.players).toHaveLength(1);
   });
 });
