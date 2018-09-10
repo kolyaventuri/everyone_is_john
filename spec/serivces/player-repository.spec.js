@@ -2,21 +2,9 @@ import PlayerRepository from '../../services/player-repository';
 import Player from '../../models/player';
 
 describe('PlayerRepository', () => {
-  let repo = null;
+  test('throws properly named error upon duplicate', () => {
+    const repo = new PlayerRepository();
 
-  beforeEach(() => {
-    repo = new PlayerRepository();
-  });
-
-  test('can have players added to it', () => {
-    const player = new Player('id');
-
-    repo.insert(player);
-
-    expect(repo.count).toEqual(1);
-  });
-
-  test('disallows duplicate players', () => {
     const player = new Player('id');
 
     repo.insert(player);
@@ -26,7 +14,5 @@ describe('PlayerRepository', () => {
     };
 
     expect(fn).toThrow('Player already exists.');
-
-    expect(repo.count).toEqual(1);
   });
 });
