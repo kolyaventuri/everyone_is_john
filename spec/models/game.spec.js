@@ -1,4 +1,4 @@
-import Game from '../../models/Game';
+import Game from '../../models/game';
 
 describe('Game', () => {
   let game = null;
