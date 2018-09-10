@@ -44,6 +44,9 @@ describe('Player', () => {
     player.joinGame(game.id);
 
     expect(game.players).toHaveLength(1);
+
+    expect(player._game).toEqual(game.id);
+    expect(player.game).toEqual(game);
   });
 
   test('cannot join a game that doesn\'t exist', () => {
