@@ -26,7 +26,7 @@ export default class Player {
   }
 
   leaveGame() {
-    this.game.kickPlayer(this.id);
+    this.game.kickPlayer(this);
 
     this._game = null;
   }

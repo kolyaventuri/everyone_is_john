@@ -23,6 +23,15 @@ export default class Game {
     }
   }
 
+  kickPlayer(player) {
+    const index = this._players.indexOf(player.id);
+    if (index < 0) {
+      return;
+    }
+
+    this._players.splice(index, 1);
+  }
+
   get id() {
     return this._id;
   }

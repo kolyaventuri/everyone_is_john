@@ -63,4 +63,14 @@ describe('Game', () => {
 
     expect(game.players).toHaveLength(1);
   });
+
+  test('can kick players', () => {
+    const player = new Player('a');
+
+    game.addPlayer(player);
+
+    game.kickPlayer(player);
+
+    expect(game.players).toHaveLength(0);
+  });
 });
