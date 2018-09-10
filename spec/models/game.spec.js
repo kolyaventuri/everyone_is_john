@@ -1,11 +1,17 @@
 import Game from '../../models/game';
 import Player from '../../models/player';
+import repos from '../../services/repositories';
+
+const {playerRepository, gameRepository} = repos;
 
 describe('Game', () => {
   let game = null;
   let owner = null;
 
-  beforeAll(() => {
+  beforeEach(() => {
+    playerRepository.clear();
+    gameRepository.clear();
+
     owner = new Player('id');
     game = new Game(owner);
   });
@@ -49,13 +55,12 @@ describe('Game', () => {
   });
 
   test('can add players', () => {
-    const player = new Player(Math.random().toString());
-    const game2 = new Game(owner);
+    const player = new Player('a');
 
-    expect(game2.players).toHaveLength(0);
+    expect(game.players).toHaveLength(0);
 
-    game2.addPlayer(player);
+    game.addPlayer(player);
 
-    expect(game2.players).toHaveLength(1);
+    expect(game.players).toHaveLength(1);
   });
 });

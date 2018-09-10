@@ -1,11 +1,18 @@
 import Player from '../../models/player';
 import Game from '../../models/game';
+import repos from '../../services/repositories';
+
+const {playerRepository} = repos;
 
 describe('Player', () => {
   let player = null;
 
   beforeAll(() => {
     player = new Player('some-random-id');
+  });
+
+  beforeEach(() => {
+    playerRepository.clear();
   });
 
   test('it has an ID', () => {
