@@ -10,7 +10,7 @@ This app in particular is a web based client allowing players to easily setup, m
 Clone down the repository and install dependencies with `npm install`
 
 ## Running Tests
-Run tests with `npm test`. This will lint the code before running tests. If any style violations are found, the tests will not run and the process will exit with a non-0 status code. Testing uses the [ava](https://github.com/avajs/ava) test runner.
+Run tests with `npm test`. This will lint the code before running tests. If any style violations are found, the tests will not run and the process will exit with a non-0 status code. Testing uses the [jest](https://jestjs.io) test runner.
 
 ## Running The App
 Start the app with `npm start`. By default it will run in development, with hot-reloading using WebpackDevMiddleware. To run in production, set `NODE_ENV=production`. The app will run on port `3000` by default.
