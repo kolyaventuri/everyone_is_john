@@ -7,12 +7,10 @@ const {playerRepository} = repos;
 describe('Player', () => {
   let player = null;
 
-  beforeAll(() => {
-    player = new Player('some-random-id');
-  });
-
   beforeEach(() => {
     playerRepository.clear();
+
+    player = new Player('some-random-id');
   });
 
   test('it has an ID', () => {
@@ -46,5 +44,13 @@ describe('Player', () => {
     player.joinGame(game.id);
 
     expect(game.players).toHaveLength(1);
+  });
+
+  test('cannot join a game that doesn\'t exist', () => {
+    const fn = () => {
+      player.joinGame('nope');
+    };
+
+    expect(fn).toThrow();
   });
 });
