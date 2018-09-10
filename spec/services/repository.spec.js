@@ -45,4 +45,18 @@ describe('Repository', () => {
     expect(result).toBeInstanceOf(Foo);
     expect(result.id).toEqual(foo2.id);
   });
+
+  test('can be cleared', () => {
+    const foo = new Foo('a');
+    const foo2 = new Foo('b');
+
+    repo.insert(foo);
+    repo.insert(foo2);
+
+    expect(repo.count).toEqual(2);
+
+    repo.clear();
+
+    expect(repo.count).toEqual(0);
+  });
 });
