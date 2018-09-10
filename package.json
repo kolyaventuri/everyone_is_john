@@ -81,10 +81,22 @@
       "browser",
       "node"
     ],
+    "ignore": [
+      "webpack/**/*.js",
+      "jest.config.js"
+    ],
     "overrides": [
       {
         "files": "spec/**/*.js",
-        "globals": ["test", "expect"]
+        "globals": [
+          "test",
+          "expect",
+          "describe",
+          "beforeAll",
+          "afterAll",
+          "beforeEach",
+          "afterEach"
+        ]
       }
     ]
   }
