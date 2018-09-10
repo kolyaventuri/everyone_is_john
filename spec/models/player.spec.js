@@ -44,6 +44,7 @@ describe('Player', () => {
     player.joinGame(game.id);
 
     expect(game.players).toHaveLength(1);
+    expect(game.players).toContain(player);
 
     expect(player._game).toEqual(game.id);
     expect(player.game).toEqual(game);
@@ -59,14 +60,26 @@ describe('Player', () => {
 
   test('cannot join a game if they are already in one', () => {
     const owner = new Player('z');
-    const game2 = new Game(owner);
+    const game = new Game(owner);
 
-    player.joinGame(game2.id);
+    player.joinGame(game.id);
 
     const fn = () => {
-      player.joinGame(game2.id);
+      player.joinGame(game.id);
     };
 
     expect(fn).toThrow('Player is already in a game.');
+  });
+
+  test('can leave a game', () => {
+    const owner = new Player('z');
+    const game = new Game(owner);
+
+    player.joinGame(game.id);
+
+    player.leaveGame();
+
+    expect(player._game).toBeNull();
+    expect(game.players).toHaveLength(0);
   });
 });
