@@ -56,4 +56,17 @@ describe('Player', () => {
 
     expect(fn).toThrow();
   });
+
+  test('cannot join a game if they are already in one', () => {
+    const owner = new Player('z');
+    const game2 = new Game(owner);
+
+    player.joinGame(game2.id);
+
+    const fn = () => {
+      player.joinGame(game2.id);
+    };
+
+    expect(fn).toThrow('Player is already in a game.');
+  });
 });

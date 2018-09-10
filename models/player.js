@@ -15,6 +15,10 @@ export default class Player {
   }
 
   joinGame(gameId) {
+    if (this._game) {
+      throw new Error('Player is already in a game.');
+    }
+
     const game = gameRepository.find(gameId);
 
     game.addPlayer(this);
