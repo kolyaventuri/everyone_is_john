@@ -28,4 +28,10 @@ export default class Game {
   get owner() {
     return playerRepository.find(this._owner);
   }
+
+  get players() {
+    return this._players.map(id => {
+      return playerRepository.find(id);
+    });
+  }
 }

@@ -29,4 +29,22 @@ describe('Game', () => {
     expect(game.owner).toBeInstanceOf(Player);
     expect(game.owner).toEqual(owner);
   });
+
+  test('has players', () => {
+    const player1 = new Player('a');
+    const player2 = new Player('b');
+    const player3 = new Player('c');
+
+    // For testing, set up using IDs
+    game._players = [player1.id, player3.id];
+
+    const {players} = game;
+
+    expect(players).toBeInstanceOf(Array);
+    expect(players).toHaveLength(2);
+
+    expect(players).toContain(player1);
+    expect(players).toContain(player3);
+    expect(players).not.toContain(player2);
+  });
 });
