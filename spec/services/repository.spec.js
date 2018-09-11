@@ -59,4 +59,19 @@ describe('Repository', () => {
 
     expect(repo.count).toEqual(0);
   });
+
+  test('can destroy object', () => {
+    const foo = new Foo('a');
+    const foo2 = new Foo('b');
+
+    repo.insert(foo);
+    repo.insert(foo2);
+
+    repo.destroy(foo);
+
+    expect(repo.count).toEqual(1);
+
+    expect(repo.find('a')).toBeUndefined();
+    expect(repo.find('b')).toBe(foo2);
+  });
 });
