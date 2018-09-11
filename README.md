@@ -1,7 +1,7 @@
 # Everyone Is John
 _This is a React reimplementation of the original web client by Vynlar (https://github.com/Vynlar/Everyone-is-John)_
 
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
+[![Build Status](https://travis-ci.com/kolyaventuri/everyone_is_john.svg?branch=master)](https://travis-ci.com/kolyaventuri/everyone_is_john) [![Coverage Status](https://coveralls.io/repos/github/kolyaventuri/everyone_is_john/badge.svg?branch=master)](https://coveralls.io/github/kolyaventuri/everyone_is_john?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 
 ## Overview
 Everyone Is John is a freeform RPG where everyone controls the same character. The rules can be found [here](https://1d4chan.org/images/7/70/EVERYONE_IS_JOHN.png).
