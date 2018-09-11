@@ -1,11 +1,9 @@
+import React from 'react';
 import {render} from 'react-dom';
 
-// eslint-disable-next-line no-unused-vars
-const MainApp = () => (
-  <h1>Hello React!</h1>
-);
+import App from './components/app.jsx';
 
-render(<MainApp />, document.getElementById('app'));
+render(<App/>, document.getElementById('app'));
 
 if (module.hot) {
   module.hot.accept();
