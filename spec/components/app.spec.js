@@ -7,6 +7,6 @@ describe('<App />', () => {
   test('should render', () => {
     const app = shallow(<App/>);
 
-    expect(app).toContainReact(<div>Hello</div>);
+    expect(app.contains(<div>Hello</div>));
   });
 });
