@@ -95,4 +95,26 @@ describe('PlayerStat', () => {
 
     expect(stat.skills).toHaveLength(0);
   });
+
+  test('can freeze skills', () => {
+    stat.addSkill('a');
+
+    expect(stat.skills).toHaveLength(1);
+
+    stat.freezeSkills();
+
+    stat.addSkill('b');
+
+    expect(stat.skills).toHaveLength(1);
+  });
+
+  test('can unfreeze skills', () => {
+    stat.freezeSkills();
+
+    stat.unfreezeSkills();
+
+    stat.addSkill('a');
+
+    expect(stat.skills).toHaveLength(1);
+  });
 });

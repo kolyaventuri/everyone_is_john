@@ -7,10 +7,19 @@ export default class PlayerStat {
     this._goalLevel = 1;
 
     this._skills = [];
+    this._skillsFrozen = false;
+  }
+
+  freezeSkills() {
+    this._skillsFrozen = true;
+  }
+
+  unfreezeSkills() {
+    this._skillsFrozen = false;
   }
 
   addSkill(value) {
-    if (!value) {
+    if (!value || this._skillsFrozen) {
       return;
     }
 
