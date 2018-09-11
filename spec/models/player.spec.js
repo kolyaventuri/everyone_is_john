@@ -1,4 +1,5 @@
 import Player from '../../models/player';
+import PlayerStat from '../../models/player-stat';
 import Game from '../../models/game';
 import repos from '../../services/repositories';
 
@@ -85,5 +86,9 @@ describe('Player', () => {
 
     expect(player._game).toBeNull();
     expect(game.players).toHaveLength(0);
+  });
+
+  test('has player stats', () => {
+    expect(player.stats).toBeInstanceOf(PlayerStat);
   });
 });
