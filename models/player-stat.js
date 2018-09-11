@@ -18,16 +18,21 @@ export default class PlayerStat {
     this._skillsFrozen = false;
   }
 
-  addSkill(value) {
+  setSkill(number, value) {
     if (!value || this._skillsFrozen) {
       return;
     }
 
-    if (this._skills.length === 3) {
-      throw new Error('Maximum of 3 skills reached.');
+    number = Number.parseInt(number, 10);
+    if (!Number.isFinite(number) || Number.isNaN(number)) {
+      throw new TypeError('Skill number must be a number.');
     }
 
-    this._skills.push(value);
+    if (number < 1 || number > 3) {
+      throw new Error('Out of bounds skill number.');
+    }
+
+    this._skills[number - 1] = value;
   }
 
   get points() {

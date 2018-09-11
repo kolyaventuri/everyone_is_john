@@ -68,42 +68,51 @@ describe('PlayerStat', () => {
     expect(fn3).toThrow(new TypeError('Goal value must be a number.'));
   });
 
-  test('can have up to 3 skills', () => {
-    expect(stat.skills).toBeInstanceOf(Array);
+  test('can set the 3 skills', () => {
+    stat.setSkill(1, 'a');
+    stat.setSkill(2, 'b');
+    stat.setSkill(3, 'c');
 
-    expect(stat.skills).toHaveLength(0);
+    expect(stat.skills).toEqual(['a', 'b', 'c']);
+  });
 
-    stat.addSkill('a');
-    expect(stat.skills).toHaveLength(1);
-
-    stat.addSkill('b');
-    expect(stat.skills).toHaveLength(2);
-
-    stat.addSkill('b');
-    expect(stat.skills).toHaveLength(3);
-
+  test('cannot set out of bounds skill', () => {
     const fn = () => {
-      stat.addSkill('d');
+      stat.setSkill(0, 'a');
     };
 
-    expect(fn).toThrow('Maximum of 3 skills reached.');
+    const fn2 = () => {
+      stat.setSkill(4, 'a');
+    };
+
+    expect(fn).toThrow('Out of bounds skill number.');
+    expect(fn2).toThrow('Out of bounds skill number.');
+  });
+
+  test('skill number must be a number', () => {
+    const fn = () => {
+      stat.setSkill('a', 'b');
+    };
+
+    expect(fn).toThrow(new TypeError('Skill number must be a number.'));
   });
 
   test('cannot have undefined or null skill', () => {
-    stat.addSkill();
-    stat.addSkill(null);
+    stat.setSkill(1);
+    stat.setSkill(2, null);
 
-    expect(stat.skills).toHaveLength(0);
+    expect(stat.skills[0]).toBeUndefined();
+    expect(stat.skills[1]).toBeUndefined();
   });
 
   test('can freeze skills', () => {
-    stat.addSkill('a');
+    stat.setSkill(1, 'a');
 
     expect(stat.skills).toHaveLength(1);
 
     stat.freezeSkills();
 
-    stat.addSkill('b');
+    stat.setSkill(2, 'b');
 
     expect(stat.skills).toHaveLength(1);
   });
@@ -113,8 +122,8 @@ describe('PlayerStat', () => {
 
     stat.unfreezeSkills();
 
-    stat.addSkill('a');
+    stat.setSkill(1, 'a');
 
-    expect(stat.skills).toHaveLength(1);
+    expect(stat.skills[0]).toBeDefined();
   });
 });
