@@ -1,0 +1,15 @@
+dist: trusty
+language: nodejs
+node_js:
+  - 8.11.3
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run lint
+  - node ./node_modules/jest/bin/jest.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+branches:
+  only:
+    - master
+before_script:
+  - npm i
