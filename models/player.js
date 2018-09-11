@@ -14,6 +14,9 @@ export default class Player {
 
     this._stats = new PlayerStat();
 
+    this._active = true;
+    this._timeoutStart = null;
+
     playerRepository.insert(this);
   }
 
@@ -32,6 +35,16 @@ export default class Player {
     this.game.kickPlayer(this);
 
     this._game = null;
+  }
+
+  deactivate() {
+    this._active = false;
+    this._timeoutStart = new Date();
+  }
+
+  activate() {
+    this._active = true;
+    this._timeoutStart = null;
   }
 
   get id() {
@@ -57,5 +70,13 @@ export default class Player {
 
   get stats() {
     return this._stats;
+  }
+
+  get active() {
+    return this._active;
+  }
+
+  get timeoutStart() {
+    return this._timeoutStart;
   }
 }

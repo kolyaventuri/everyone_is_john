@@ -14,19 +14,19 @@ describe('Player', () => {
     player = new Player('some-random-id');
   });
 
-  test('it has an ID', () => {
+  test('has an ID', () => {
     expect(player.id).not.toBeNull();
 
     expect(player.id).toEqual(expect.any(String));
   });
 
-  test('it has a default name', () => {
+  test('has a default name', () => {
     expect(player.name).not.toBeNull();
 
     expect(player.name).toEqual(expect.any(String));
   });
 
-  test('its name can change', () => {
+  test('name can change', () => {
     const newName = 'JohnDoe';
 
     expect(player.name).not.toEqual(newName);
@@ -34,6 +34,26 @@ describe('Player', () => {
     player.name = newName;
 
     expect(player.name).toEqual(newName);
+  });
+
+  test('has an active flag', () => {
+    expect(player.active).toEqual(true);
+  });
+
+  test('can be deactivated and given a timeout', () => {
+    player.deactivate();
+
+    expect(player.active).toEqual(false);
+    expect(player.timeoutStart).toBeInstanceOf(Date);
+  });
+
+  test('can be reactivated', () => {
+    player.deactivate();
+
+    player.activate();
+
+    expect(player.active).toEqual(true);
+    expect(player.timeoutStart).toBeNull();
   });
 
   test('can join a game', () => {
