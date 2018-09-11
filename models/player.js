@@ -1,5 +1,6 @@
 import Chance from 'chance';
 import repos from '../services/repositories';
+import PlayerStat from './player-stat';
 
 const {playerRepository, gameRepository} = repos;
 
@@ -10,6 +11,8 @@ export default class Player {
     this._id = id;
     this._name = chance.name({middle: true, prefix: true});
     this._game = null;
+
+    this._stats = new PlayerStat();
 
     playerRepository.insert(this);
   }
@@ -50,5 +53,9 @@ export default class Player {
     }
 
     return gameRepository.find(this._game);
+  }
+
+  get stats() {
+    return this._stats;
   }
 }
