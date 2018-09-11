@@ -86,6 +86,13 @@ describe('PlayerStat', () => {
       stat.addSkill('d');
     };
 
-    expect(fn).toThrow();
+    expect(fn).toThrow('Maximum of 3 skills reached.');
+  });
+
+  test('cannot have undefined or null skill', () => {
+    stat.addSkill();
+    stat.addSkill(null);
+
+    expect(stat.skills).toHaveLength(0);
   });
 });

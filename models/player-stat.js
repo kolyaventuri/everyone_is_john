@@ -9,6 +9,18 @@ export default class PlayerStat {
     this._skills = [];
   }
 
+  addSkill(value) {
+    if (!value) {
+      return;
+    }
+
+    if (this._skills.length === 3) {
+      throw new Error('Maximum of 3 skills reached.');
+    }
+
+    this._skills.push(value);
+  }
+
   get points() {
     return this._points;
   }
@@ -44,5 +56,9 @@ export default class PlayerStat {
     }
 
     this._goalLevel = value;
+  }
+
+  get skills() {
+    return this._skills;
   }
 }
