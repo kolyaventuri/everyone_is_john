@@ -15,6 +15,10 @@ export default class Repository {
     return this._objects[id];
   }
 
+  destroy(obj) {
+    delete this._objects[obj.id];
+  }
+
   clear() {
     this._objects = [];
   }
