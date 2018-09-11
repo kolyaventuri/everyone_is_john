@@ -18,7 +18,7 @@ describe('PlayerStat', () => {
   test('can add willpower', () => {
     stat.willpower += 1;
 
-    expect(stat.willpower).toEqual(1);
+    expect(stat.willpower).toEqual(11);
   });
 
   test('can subtract willpower', () => {
@@ -34,7 +34,7 @@ describe('PlayerStat', () => {
 
     stat.goal = goal;
 
-    expect(stat.gloal).toEqual(goal);
+    expect(stat.goal).toEqual(goal);
   });
 
   test('goal can have a point value in [1 - 3]', () => {
@@ -51,13 +51,21 @@ describe('PlayerStat', () => {
       stat.goalLevel = 0;
     };
 
-    expect(fn).toThrow();
+    expect(fn).toThrow('Goal value out of bounds');
 
     const fn2 = () => {
       stat.goalLevel = 4;
     };
 
-    expect(fn2).toThrow();
+    expect(fn2).toThrow('Goal value out of bounds.');
+  });
+
+  test('goal value must be a number', () => {
+    const fn3 = () => {
+      stat.goalLevel = 'soup';
+    };
+
+    expect(fn3).toThrow(new TypeError('Goal value must be a number.'));
   });
 
   test('can have up to 3 skills', () => {
