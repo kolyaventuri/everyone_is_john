@@ -1,7 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-export default class Header extends React.Component {
-  render() {
-    return null;
-  }
-}
+const Header = () => (
+  <header>
+    <nav>
+      <Link to="/">Everyone is John</Link>
+    </nav>
+  </header>
+);
+
+export default Header;

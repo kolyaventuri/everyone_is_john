@@ -13,10 +13,10 @@ describe('<App />', () => {
   });
 
   test('should have a header', () => {
-    expect(app.contains(<Header/>));
+    expect(app.find(Header)).toHaveLength(1);
   });
 
   test('should have the main render component', () => {
-    expect(app.contains(<Main/>));
+    expect(app.find(Main)).toHaveLength(1);
   });
 });
