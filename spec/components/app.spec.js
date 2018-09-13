@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import App from '../../src/components/app.jsx';
-import Header from '../../src/components/header.jsx';
+import Header from '../../src/components/shared/header.jsx';
 import Main from '../../src/components/main.jsx';
 
 describe('<App />', () => {

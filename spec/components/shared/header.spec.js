@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {shallow} from 'enzyme';
 
-import Header from '../../src/components/header.jsx';
+import Header from '../../../src/components/shared/header.jsx';
 
 describe('<Header />', () => {
   let header = null;
@@ -12,9 +12,9 @@ describe('<Header />', () => {
   });
 
   test('should have a link to home', () => {
-    const links = header.find(Link);
-    const homeLink = links.filter(link => link.props().to === '/');
+    const links = [...header.find(Link)];
+    const homeLink = links.filter(link => link.props.to === '/');
 
-    expect(homeLink).toBeDefined();
+    expect(homeLink).toHaveLength(1);
   });
 });
