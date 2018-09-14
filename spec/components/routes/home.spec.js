@@ -3,6 +3,8 @@ import {shallow} from 'enzyme';
 
 import {Link} from 'react-router-dom';
 
+import GameManager from '../../../src/lib/game-manager';
+
 import Home from '../../../src/components/routes/home.jsx';
 import Rules from '../../../src/components/routes/components/rules.jsx';
 import Button from '../../../src/components/shared/button.jsx';
@@ -31,7 +33,7 @@ describe('<Home />', () => {
 
     const startButton = startButtons[0];
 
-    expect(startButton.props.onClick).toEqual(expect.any(Function));
+    expect(startButton.props.onClick).toEqual(GameManager.create);
   });
 
   test('should render a join game button', () => {
