@@ -32,7 +32,7 @@ describe('SocketEvents', () => {
     });
 
     test('does not create a new player if the player exists', () => {
-      const id = 'some=id';
+      const id = 'some-id';
 
       events.initPlayer(id);
       events.initPlayer(id);
@@ -46,6 +46,15 @@ describe('SocketEvents', () => {
       events.initPlayer();
 
       expect(socket.emit).toHaveBeenCalledWith('player.connect', expect.any(String));
+    });
+
+    test('stores ID on socket', () => {
+      events.initPlayer();
+
+      const player = playerRepository.all()[0];
+      const id = player._id;
+
+      expect(socket._uid).toEqual(id);
     });
   });
 });

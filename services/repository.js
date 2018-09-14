@@ -20,7 +20,11 @@ export default class Repository {
   }
 
   clear() {
-    this._objects = [];
+    this._objects = {};
+  }
+
+  all() {
+    return Object.values(this._objects);
   }
 
   get count() {
