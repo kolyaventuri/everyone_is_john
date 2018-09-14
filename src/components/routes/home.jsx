@@ -1,17 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import Button from '../shared/button.jsx';
 import Rules from './components/rules.jsx';
 
 const Home = () => (
   <div>
     <div>
-      <div className="button">
-        <Link to="/game/new">Start a Game</Link>
-      </div>
-      <div className="button">
+      <Button onClick={() => {}}>
+        Start Game
+      </Button>
+      <Button>
         <Link to="/game/join">Join a Game</Link>
-      </div>
+      </Button>
     </div>
     <Rules/>
   </div>

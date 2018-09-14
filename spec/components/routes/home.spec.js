@@ -5,14 +5,17 @@ import {Link} from 'react-router-dom';
 
 import Home from '../../../src/components/routes/home.jsx';
 import Rules from '../../../src/components/routes/components/rules.jsx';
+import Button from '../../../src/components/shared/button.jsx';
 
 describe('<Home />', () => {
   let home = null;
   let links = null;
+  let buttons = null;
 
   beforeAll(() => {
     home = shallow(<Home/>);
     links = [...home.find(Link)];
+    buttons = [...home.find(Button)];
   });
 
   test('should render the rules', () => {
@@ -22,9 +25,13 @@ describe('<Home />', () => {
   });
 
   test('should render a start game button', () => {
-    const startGameButton = links.filter(({props}) => props.to === '/game/new');
+    const startButtons = buttons.filter(({props}) => props.children === 'Start Game');
 
-    expect(startGameButton).toHaveLength(1);
+    expect(startButtons).toHaveLength(1);
+
+    const startButton = startButtons[0];
+
+    expect(startButton.props.onClick).toEqual(expect.any(Function));
   });
 
   test('should render a join game button', () => {
