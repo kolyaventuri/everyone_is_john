@@ -3,8 +3,18 @@ export default class SocketEvents {
     this.GameManager = gm;
   }
 
-  initGame(data) {
-    window.location = `/game/${data.id}`;
+  initPlayer(socket) {
+    const id = window.localStorage.uid;
+
+    socket.emit('player.init', id);
+  }
+
+  playerConnect(id) {
+    window.localStorage.uid = id;
+  }
+
+  initGame(id) {
+    window.location = `/game/${id}`;
   }
 
   rejectInitGame() {

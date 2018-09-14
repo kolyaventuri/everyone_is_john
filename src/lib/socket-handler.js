@@ -15,6 +15,12 @@ class SocketHandler {
   registerEvents() {
     const {socket, event} = this;
 
+    socket.on('turtle', () => {
+      event.initPlayer(this.socket);
+    });
+
+    socket.on('player.connect', event.playerConnect);
+
     socket.on('game.initiate', event.initGame);
     socket.on('game.initiate.reject', event.rejectInitGame);
   }

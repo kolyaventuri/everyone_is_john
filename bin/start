@@ -11,7 +11,8 @@
 require('@babel/register');
 require('@babel/polyfill');
 
-const app = require('../app').default;
+const appModule = require('../app').default;
+const app = appModule.app;
 const debug = require('debug')('everyone-is-john:server');
 const http = require('http');
 
@@ -48,18 +49,17 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-/**
- * Create socket.io server.
- */
-const io = require('socket.io')(server);
-const SocketHandler = require('../lib/socket-handler').default;
-new SocketHandler(io);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
+
+/**
+ * Trigger Socket setup
+ */
+appModule.setupSockets(server);
 
 /**
  * Event listener for HTTP server "error" event.
