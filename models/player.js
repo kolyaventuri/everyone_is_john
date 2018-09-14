@@ -1,4 +1,5 @@
 import Chance from 'chance';
+import uuidv1 from 'uuid/v1';
 import repos from '../services/repositories';
 import PlayerStat from './player-stat';
 
@@ -8,6 +9,8 @@ const chance = new Chance();
 
 export default class Player {
   constructor(id) {
+    id = id || uuidv1();
+
     this._id = id;
     this._name = chance.name({middle: true, prefix: true});
     this._game = null;
