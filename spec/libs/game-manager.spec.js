@@ -2,7 +2,8 @@ import GameManager from '../../src/lib/game-manager';
 import socket from '../../src/lib/socket';
 
 jest.mock('../../src/lib/socket', () => ({
-  emit: jest.fn()
+  emit: jest.fn(),
+  on: jest.fn()
 }));
 
 describe('GameManager', () => {

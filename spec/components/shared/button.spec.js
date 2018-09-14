@@ -1,5 +1,4 @@
 import React from 'react';
-import sinon from 'sinon';
 
 import {shallow, mount} from 'enzyme';
 
@@ -15,7 +14,7 @@ describe('<Button />', () => {
   });
 
   test('should fire a function on click', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
 
     const button = mount(<Button onClick={spy}>Test</Button>);
 
@@ -23,6 +22,6 @@ describe('<Button />', () => {
 
     button.simulate('click');
 
-    expect(spy.called).toEqual(true);
+    expect(spy).toHaveBeenCalled();
   });
 });
