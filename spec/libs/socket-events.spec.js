@@ -41,5 +41,11 @@ describe('SocketEvents', () => {
 
       expect(playerRepository.find(id)).toBeInstanceOf(Player);
     });
+
+    test('emits a socket event', () => {
+      events.initPlayer();
+
+      expect(socket.emit).toHaveBeenCalledWith('player.connect', expect.any(String));
+    });
   });
 });
