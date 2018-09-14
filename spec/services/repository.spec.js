@@ -74,4 +74,14 @@ describe('Repository', () => {
     expect(repo.find('a')).toBeUndefined();
     expect(repo.find('b')).toBe(foo2);
   });
+
+  test('can get all objects', () => {
+    for (let i = 0; i < 5; i++) {
+      repo.insert(new Foo(i));
+    }
+
+    const items = repo.all();
+
+    expect(items).toHaveLength(5);
+  });
 });

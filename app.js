@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser';
 import debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
+import io from 'socket.io';
+import SocketHandler from './lib/socket-handler';
 // Favicon: import favicon from 'serve-favicon';
 
 import webpackDevServer from './webpack/dev-server';
@@ -55,4 +57,19 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
-export default app;
+const setupSockets = server => {
+  /**
+   * Create socket.io server.
+   */
+  const _io = io(server);
+  (() => {
+    return new SocketHandler(_io);
+  })();
+};
+
+const appModule = {
+  app,
+  setupSockets
+};
+
+export default appModule;
