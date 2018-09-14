@@ -56,5 +56,13 @@ describe('SocketEvents', () => {
 
       expect(socket._uid).toEqual(id);
     });
+
+    test('stores socket on player', () => {
+      events.initPlayer();
+
+      const player = playerRepository.all()[0];
+
+      expect(player.socket).toEqual(socket);
+    });
   });
 });
