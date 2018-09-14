@@ -4,7 +4,7 @@ import Player from '../../models/player';
 import repos from '../../services/repositories';
 import socket from '../helpers/mock-socket';
 
-const {playerRepository} = repos;
+const {playerRepository, gameRepository} = repos;
 
 describe('SocketEvents', () => {
   describe('initPlayer', () => {
@@ -63,6 +63,39 @@ describe('SocketEvents', () => {
       const player = playerRepository.all()[0];
 
       expect(player.socket).toEqual(socket);
+    });
+  });
+
+  describe('createGame', () => {
+    let events = null;
+
+    beforeEach(() => {
+      gameRepository.clear();
+      playerRepository.clear();
+
+      delete socket.player;
+      events = new SocketEvents(socket);
+    });
+
+    test('it rejects if no player exists', () => {
+      events.createGame();
+
+      expect(socket.emit).toHaveBeenCalledWith('game.initiate.reject');
+    });
+
+    test('it creates a game', () => {
+      events.initPlayer();
+
+      const player = playerRepository.all()[0];
+      socket.player = player;
+
+      events.createGame();
+
+      expect(gameRepository.count).toEqual(1);
+
+      const game = gameRepository.all()[0];
+
+      expect(socket.emit).toHaveBeenCalledWith('game.initiate', game.id);
     });
   });
 });

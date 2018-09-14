@@ -6,4 +6,8 @@ export default class SocketEvents {
   initGame(data) {
     window.location = `/game/${data.id}`;
   }
+
+  rejectInitGame() {
+    window.location = '/';
+  }
 }

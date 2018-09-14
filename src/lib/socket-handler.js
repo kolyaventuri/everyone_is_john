@@ -16,6 +16,7 @@ class SocketHandler {
     const {socket, event} = this;
 
     socket.on('game.initiate', event.initGame);
+    socket.on('game.initiate.reject', event.rejectInitGame);
   }
 }
 
