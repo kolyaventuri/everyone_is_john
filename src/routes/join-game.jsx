@@ -16,6 +16,8 @@ export default class JoinGame extends React.Component {
     const {value} = this.textBox;
 
     GameManager.joinGame(value);
+
+    console.log(value, true);
   }
 
   render() {
