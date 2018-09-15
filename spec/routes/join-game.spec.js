@@ -46,4 +46,16 @@ describe('<JoinGame />', () => {
 
     expect(mockJoinFn).toHaveBeenCalled();
   });
+
+  test('"Join Game" fires GameManager.joinGame with ID from <TextBox/>', () => {
+    const button = joinGame.find(Button);
+    const textBox = joinGame.find(TextBox);
+
+    const id = 'ABCDE';
+    textBox.value = id;
+
+    button.simulate('click');
+
+    expect(mockJoinFn).toHaveBeenCalledWith(id);
+  });
 });

@@ -5,11 +5,27 @@ import Button from '../components/shared/button.jsx';
 
 import GameManager from '../lib/game-manager';
 
-const JoinGame = () => (
-  <div>
-    <TextBox/>
-    <Button onClick={GameManager.joinGame}>Join Game</Button>
-  </div>
-);
+export default class JoinGame extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default JoinGame;
+    this.textBox = <TextBox/>;
+  }
+
+  joinGame = () => {
+    const {value} = this.textBox;
+
+    GameManager.joinGame(value);
+  }
+
+  render() {
+    const {textBox, joinGame} = this;
+
+    return (
+      <div>
+        {textBox}
+        <Button onClick={joinGame}>Join Game</Button>
+      </div>
+    );
+  }
+}
