@@ -7,9 +7,13 @@ import Button from '../../src/components/shared/button.jsx';
 
 const mockJoinFn = jest.fn();
 
-jest.mock('../../src/lib/game-manager', () => ({
-  joinGame: mockJoinFn
-}));
+jest.mock('../../src/lib/game-manager', () => {
+  return class GameManager {
+    static joinGame() {
+      mockJoinFn();
+    }
+  };
+});
 
 describe('<JoinGame />', () => {
   let joinGame = null;
@@ -34,6 +38,12 @@ describe('<JoinGame />', () => {
     const {props} = button;
 
     expect(props.children).toEqual('Join Game');
-    expect(props.onClick).toEqual(mockJoinFn);
+    expect(props.onClick).toEqual(expect.any(Function));
+  });
+
+  test('"Join Game" button fires GameManager.joinGame', () => {
+    joinGame.find(Button).simulate('click');
+
+    expect(mockJoinFn).toHaveBeenCalled();
   });
 });
