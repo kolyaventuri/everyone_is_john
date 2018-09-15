@@ -3,9 +3,9 @@ import {shallow} from 'enzyme';
 import {Switch, Route} from 'react-router-dom';
 
 import Main from '../../src/components/main.jsx';
-import Home from '../../src/components/routes/home.jsx';
+import Home from '../../src/routes/home.jsx';
 
-import JoinGame from '../../src/components/routes/join-game.jsx';
+import JoinGame from '../../src/routes/join-game.jsx';
 
 describe('<Main />', () => {
   let main = null;

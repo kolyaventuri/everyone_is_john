@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 
 import GameManager from '../../../src/lib/game-manager';
 
-import Home from '../../../src/components/routes/home.jsx';
-import Rules from '../../../src/components/routes/components/rules.jsx';
+import Home from '../../../src/routes/home.jsx';
+import Rules from '../../../src/components/rules.jsx';
 import Button from '../../../src/components/shared/button.jsx';
 
 describe('<Home />', () => {
