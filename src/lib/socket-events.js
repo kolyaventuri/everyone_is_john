@@ -14,10 +14,10 @@ export default class SocketEvents {
   }
 
   initGame(id) {
-    window.location = `/game/${id}`;
+    window.location.assign(`/game/${id}`);
   }
 
   rejectInitGame() {
-    window.location = '/';
+    window.location.assign('/');
   }
 }

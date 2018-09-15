@@ -7,6 +7,16 @@ import socket from '../helpers/mock-socket';
 const {playerRepository, gameRepository} = repos;
 
 describe('SocketEvents', () => {
+  describe('connect', () => {
+    test('emits a turtle event', () => {
+      const events = new SocketEvents(socket);
+
+      events.connect();
+
+      expect(socket.emit).toHaveBeenCalledWith('turtle');
+    });
+  });
+
   describe('initPlayer', () => {
     let events = null;
 
