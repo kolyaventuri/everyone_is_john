@@ -8,8 +8,10 @@ const {playerRepository, gameRepository} = repos;
 const chance = new Chance();
 
 export default class Player {
-  constructor(id) {
+  constructor(socket, id) {
     id = id || uuidv1();
+
+    this._socket = socket;
 
     this._id = id;
     this._name = chance.name({middle: true, prefix: true});
@@ -52,6 +54,10 @@ export default class Player {
 
   get id() {
     return this._id;
+  }
+
+  get socket() {
+    return this._socket;
   }
 
   get name() {

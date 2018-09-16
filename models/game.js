@@ -27,6 +27,9 @@ export default class Game {
     if (this._players.indexOf(player.id) < 0) {
       this._players.push(player.id);
     }
+
+    const room = `game/${this.id}/all`;
+    player.socket.join(room);
   }
 
   kickPlayer(player) {
