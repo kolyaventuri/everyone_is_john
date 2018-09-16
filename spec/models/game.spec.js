@@ -97,4 +97,10 @@ describe('Game', () => {
 
     expect(game.players).toHaveLength(1);
   });
+
+  test('can be deleted', () => {
+    game.destroy();
+
+    expect(gameRepository.count).toEqual(0);
+  });
 });

@@ -32,6 +32,10 @@ export default class Game {
     this._players.splice(index, 1);
   }
 
+  destroy() {
+    gameRepository.destroy(this);
+  }
+
   get id() {
     return this._id;
   }
