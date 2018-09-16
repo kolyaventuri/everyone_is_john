@@ -1,5 +1,5 @@
 import Chance from 'chance';
-import uuidv1 from 'uuid/v1';
+import uuidv1 from 'uuid/v4';
 import repos from '../services/repositories';
 import PlayerStat from './player-stat';
 

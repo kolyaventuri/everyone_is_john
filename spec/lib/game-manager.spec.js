@@ -22,7 +22,7 @@ describe('GameManager', () => {
   });
 
   test('.joinGame() without an ID does not emit', () => {
-    GameManager.joinGame();
+    GameManager.joinGame('');
 
     expect(socket.emit).not.toHaveBeenCalled();
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 
 import JoinGame from '../../src/routes/join-game.jsx';
 import TextBox from '../../src/components/text-box.jsx';
@@ -9,8 +9,8 @@ const mockJoinFn = jest.fn();
 
 jest.mock('../../src/lib/game-manager', () => {
   return class GameManager {
-    static joinGame() {
-      mockJoinFn();
+    static joinGame(id) {
+      mockJoinFn(id);
     }
   };
 });
@@ -48,11 +48,13 @@ describe('<JoinGame />', () => {
   });
 
   test('"Join Game" fires GameManager.joinGame with ID from <TextBox/>', () => {
-    const button = joinGame.find(Button);
-    const textBox = joinGame.find(TextBox);
+    const mountedGame = mount(<JoinGame/>);
+
+    const button = mountedGame.find(Button);
+    const textBox = mountedGame.find(TextBox);
 
     const id = 'ABCDE';
-    textBox.value = id;
+    textBox.simulate('change', {target: {value: id}});
 
     button.simulate('click');
 
