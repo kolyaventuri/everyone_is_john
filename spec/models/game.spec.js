@@ -72,6 +72,17 @@ describe('Game', () => {
     expect(game.players).toHaveLength(1);
   });
 
+  test('player added is joine to game/:id/all room', () => {
+    const socket = new MockSocket();
+    const player = new Player(socket, 'a');
+
+    game.addPlayer(player);
+
+    const room = `game/${game.id}/all`;
+
+    expect(player.socket.join).toHaveBeenCalledWith(room);
+  });
+
   test('cannot add player twice', () => {
     const player = new Player(new MockSocket(), 'a');
 
