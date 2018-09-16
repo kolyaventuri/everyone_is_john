@@ -1,11 +1,18 @@
 import socket from './socket';
 import SocketHandler from './socket-handler';
 
-class GameManager {
-  static create() {
+const GameManager = {
+  create: () => {
     socket.emit('game.create');
+  },
+
+  joinGame: gameID => {
+    if (!gameID) {
+      return;
+    }
+    socket.emit('game.join', gameID);
   }
-}
+};
 
 SocketHandler.register(socket, GameManager);
 

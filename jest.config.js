@@ -28,8 +28,7 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    '\\\\node_modules\\\\',
-    'rules.jsx'
+    '\\\\node_modules\\\\'
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports
@@ -136,7 +135,7 @@ module.exports = {
   // The glob patterns Jest uses to detect test files
   testMatch: [
     '**/*.spec.js'
-  ]
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -153,7 +152,7 @@ module.exports = {
   // testRunner: 'jasmine2',
 
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
-  // testURL: 'http://localhost',
+  testURL: 'http://localhost',
 
   // Setting this value to 'fake' allows the use of fake timers for functions such as 'setTimeout'
   // timers: 'real',
