@@ -29,7 +29,10 @@ export default class Game {
     }
 
     const room = `game/${this.id}/all`;
+    const privateRoom = `game/${this.id}/player/${player.id}`;
+
     player.socket.join(room);
+    player.socket.join(privateRoom);
   }
 
   kickPlayer(player) {

@@ -78,11 +78,22 @@ describe('Player', () => {
     expect(player.game).toEqual(game);
   });
 
-  test('is subscribed to the public room upon game creation', () => {
+  test('is subscribed to the public room upon joining game', () => {
     const owner = new Player(new MockSocket(), 'id');
     const game = new Game(owner);
 
     const room = `game/${game.id}/all`;
+
+    player.joinGame(game.id);
+
+    expect(player.socket.join).toHaveBeenCalledWith(room);
+  });
+
+  test('is subscribed to private channel upon joining a game', () => {
+    const owner = new Player(new MockSocket(), 'id');
+    const game = new Game(owner);
+
+    const room = `game/${game.id}/player/${player.id}`;
 
     player.joinGame(game.id);
 
