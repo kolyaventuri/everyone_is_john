@@ -1,6 +1,7 @@
 import Game from '../../models/game';
 import Player from '../../models/player';
 import repos from '../../services/repositories';
+import socket from '../helpers/mock-socket';
 
 const {playerRepository, gameRepository} = repos;
 
@@ -13,7 +14,15 @@ describe('Game', () => {
     gameRepository.clear();
 
     owner = new Player('id');
+    owner.socket = socket;
+
     game = new Game(owner);
+  });
+
+  test('subscribes owner to gm socket', () => {
+    const room = `game/${game.id}/gm`;
+
+    expect(owner.socket.join).toHaveBeenCalledWith(room);
   });
 
   test('has an ID', () => {

@@ -15,6 +15,12 @@ export default class Game {
     this._players = [];
 
     gameRepository.insert(this);
+
+    this._roomPrefix = `game/${this._id}`;
+
+    const room = `${this._roomPrefix}/gm`;
+
+    owner.socket.join(room);
   }
 
   addPlayer(player) {

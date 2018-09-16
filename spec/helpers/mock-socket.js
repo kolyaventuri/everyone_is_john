@@ -2,6 +2,8 @@ const events = {};
 
 const socket = {
   emit: jest.fn(),
+  join: jest.fn(),
+
   on: (name, fn) => {
     events[name] = fn;
   },
