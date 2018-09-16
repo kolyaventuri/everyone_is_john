@@ -2,13 +2,14 @@ import SocketEvents from '../../lib/socket-events';
 import Player from '../../models/player';
 
 import repos from '../../services/repositories';
-import socket from '../helpers/mock-socket';
+import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository, gameRepository} = repos;
 
 describe('SocketEvents', () => {
   describe('connect', () => {
     test('emits a turtle event', () => {
+      const socket = new MockSocket();
       const events = new SocketEvents(socket);
 
       events.connect();
@@ -19,6 +20,7 @@ describe('SocketEvents', () => {
 
   describe('initPlayer', () => {
     let events = null;
+    const socket = new MockSocket();
 
     beforeEach(() => {
       playerRepository.clear();
@@ -78,12 +80,12 @@ describe('SocketEvents', () => {
 
   describe('createGame', () => {
     let events = null;
+    const socket = new MockSocket();
 
     beforeEach(() => {
       gameRepository.clear();
       playerRepository.clear();
 
-      delete socket.player;
       events = new SocketEvents(socket);
     });
 

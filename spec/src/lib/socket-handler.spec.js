@@ -1,9 +1,11 @@
 import SocketHandler from '../../../src/lib/socket-handler';
-import socket from '../../helpers/mock-socket';
+import MockSocket from '../../helpers/mock-socket';
 
 const mockInitPlayer = jest.fn();
 const mockInitGame = jest.fn();
 const mockRejectInit = jest.fn();
+
+const socket = new MockSocket();
 
 jest.mock('../../../src/lib/socket-events', () => {
   return class SocketEvents {

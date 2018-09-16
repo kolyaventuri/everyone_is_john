@@ -1,16 +1,19 @@
 import jsdom from 'jsdom';
 import SocketEvents from '../../../src/lib/socket-events';
-import socket from '../../helpers/mock-socket';
+import MockSocket from '../../helpers/mock-socket';
 
 const {JSDOM} = jsdom;
 
 describe('SocketEvents', () => {
   let events = null;
+  let socket = null;
+
   global.window = new JSDOM('', {url: 'http://localhost'}).window;
   window.location.assign = jest.fn();
 
   beforeAll(() => {
     events = new SocketEvents();
+    socket = new MockSocket();
   });
 
   describe('initPlayer', () => {

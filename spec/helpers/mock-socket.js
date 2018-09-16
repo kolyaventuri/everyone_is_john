@@ -1,4 +1,4 @@
-class Socket {
+class MockSocket {
   emit = jest.fn()
 
   join = jest.fn()
@@ -14,4 +14,4 @@ class Socket {
   }
 }
 
-export default Socket;
+export default MockSocket;

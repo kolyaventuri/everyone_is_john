@@ -2,7 +2,7 @@ import Player from '../../models/player';
 import PlayerStat from '../../models/player-stat';
 import Game from '../../models/game';
 import repos from '../../services/repositories';
-import Socket from '../helpers/mock-socket';
+import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository} = repos;
 
@@ -13,7 +13,7 @@ describe('Player', () => {
   beforeEach(() => {
     playerRepository.clear();
 
-    socket = new Socket();
+    socket = new MockSocket();
     player = new Player(socket, 'some-random-id');
   });
 
@@ -64,7 +64,7 @@ describe('Player', () => {
   });
 
   test('can join a game', () => {
-    const owner = new Player(new Socket(), 'id');
+    const owner = new Player(new MockSocket(), 'id');
     const game = new Game(owner);
 
     expect(game.players).toHaveLength(0);
@@ -79,7 +79,7 @@ describe('Player', () => {
   });
 
   test('is subscribed to the public room upon game creation', () => {
-    const owner = new Player(new Socket(), 'id');
+    const owner = new Player(new MockSocket(), 'id');
     const game = new Game(owner);
 
     const room = `game/${game.id}/all`;
@@ -102,7 +102,7 @@ describe('Player', () => {
   });
 
   test('cannot join a game if they are already in one', () => {
-    const owner = new Player(new Socket(), 'z');
+    const owner = new Player(new MockSocket(), 'z');
     const game = new Game(owner);
 
     player.joinGame(game.id);
@@ -115,7 +115,7 @@ describe('Player', () => {
   });
 
   test('can leave a game', () => {
-    const owner = new Player(new Socket(), 'z');
+    const owner = new Player(new MockSocket(), 'z');
     const game = new Game(owner);
 
     player.joinGame(game.id);

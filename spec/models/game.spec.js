@@ -1,7 +1,7 @@
 import Game from '../../models/game';
 import Player from '../../models/player';
 import repos from '../../services/repositories';
-import socket from '../helpers/mock-socket';
+import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository, gameRepository} = repos;
 
@@ -13,8 +13,7 @@ describe('Game', () => {
     playerRepository.clear();
     gameRepository.clear();
 
-    owner = new Player('id');
-    owner.socket = socket;
+    owner = new Player(new MockSocket(), 'id');
 
     game = new Game(owner);
   });
@@ -46,9 +45,9 @@ describe('Game', () => {
   });
 
   test('has players', () => {
-    const player1 = new Player('a');
-    const player2 = new Player('b');
-    const player3 = new Player('c');
+    const player1 = new Player(new MockSocket(), 'a');
+    const player2 = new Player(new MockSocket(), 'b');
+    const player3 = new Player(new MockSocket(), 'c');
 
     // For testing, set up using IDs
     game._players = [player1.id, player3.id];
@@ -64,7 +63,7 @@ describe('Game', () => {
   });
 
   test('can add players', () => {
-    const player = new Player('a');
+    const player = new Player(new MockSocket(), 'a');
 
     expect(game.players).toHaveLength(0);
 
@@ -74,7 +73,7 @@ describe('Game', () => {
   });
 
   test('cannot add player twice', () => {
-    const player = new Player('a');
+    const player = new Player(new MockSocket(), 'a');
 
     expect(game.players).toHaveLength(0);
 
@@ -85,7 +84,7 @@ describe('Game', () => {
   });
 
   test('can kick players', () => {
-    const player = new Player('a');
+    const player = new Player(new MockSocket(), 'a');
 
     game.addPlayer(player);
 
@@ -95,8 +94,8 @@ describe('Game', () => {
   });
 
   test('cannot kick non-existant player', () => {
-    const player = new Player('a');
-    const player2 = new Player('b');
+    const player = new Player(new MockSocket(), 'a');
+    const player2 = new Player(new MockSocket(), 'b');
 
     game.addPlayer(player);
 

@@ -1,11 +1,14 @@
 import GameRepository from '../../services/game-repository';
 import Game from '../../models/game';
+import Player from '../../models/player';
+import MockSocket from '../helpers/mock-socket';
 
 describe('GameRepository', () => {
   test('throws properly named error upon duplicate', () => {
     const repo = new GameRepository();
 
-    const game = new Game('id');
+    const owner = new Player(new MockSocket(), 'id');
+    const game = new Game(owner);
 
     repo.insert(game);
 
