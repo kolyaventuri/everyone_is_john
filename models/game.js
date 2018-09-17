@@ -7,7 +7,9 @@ const {gameRepository, playerRepository} = repos;
 const chance = new Chance();
 
 export default class Game {
-  constructor(owner) {
+  constructor(io, owner) {
+    this.io = io;
+
     this._id = chance.string({length: 5, pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'});
     this._slug = Slug.random();
 
@@ -46,6 +48,12 @@ export default class Game {
 
   destroy() {
     gameRepository.destroy(this);
+  }
+
+  emitAll(event, data) {
+    const roomPrefix = this._roomPrefix;
+
+    this.io.in(`${roomPrefix}/all`).emit(event, data);
   }
 
   get id() {
