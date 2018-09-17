@@ -10,6 +10,7 @@ describe('SocketEvents', () => {
 
   global.window = new JSDOM('', {url: 'http://localhost'}).window;
   window.location.assign = jest.fn();
+  window.showError = jest.fn();
 
   beforeAll(() => {
     events = new SocketEvents();
@@ -56,6 +57,32 @@ describe('SocketEvents', () => {
   describe('rejectInitGame', () => {
     test('it sends the user back to the index', () => {
       events.rejectInitGame();
+
+      expect(window.location.assign).toHaveBeenCalledWith('/');
+    });
+  });
+
+  describe('rejectJoin', () => {
+    test('it triggers an error message', () => {
+      events.rejectJoin();
+
+      expect(window.showError).toHaveBeenCalled();
+    });
+  });
+
+  describe('joinGame', () => {
+    test('sends user to game', () => {
+      const id = 'ABCDE';
+
+      events.joinGame(id);
+
+      expect(window.location.assign).toHaveBeenCalledWith(`/game/${id}`);
+    });
+  });
+
+  describe('genericReject', () => {
+    test('sends the user back to /', () => {
+      events.genericReject();
 
       expect(window.location.assign).toHaveBeenCalledWith('/');
     });

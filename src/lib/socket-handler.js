@@ -19,10 +19,15 @@ class SocketHandler {
       event.initPlayer(this.socket);
     });
 
+    socket.on('generic.reject', event.genericReject);
+
     socket.on('player.connect', event.playerConnect);
 
     socket.on('game.initiate', event.initGame);
     socket.on('game.initiate.reject', event.rejectInitGame);
+
+    socket.on('game.join', event.joinGame);
+    socket.on('game.join.reject', event.joinReject);
   }
 }
 
