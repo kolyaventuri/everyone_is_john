@@ -1,5 +1,6 @@
 import SocketEvents from '../../lib/socket-events';
 import Player from '../../models/player';
+import Game from '../../models/game';
 
 import repos from '../../services/repositories';
 import MockSocket from '../helpers/mock-socket';
@@ -108,6 +109,46 @@ describe('SocketEvents', () => {
       const game = gameRepository.all()[0];
 
       expect(socket.emit).toHaveBeenCalledWith('game.initiate', game.id);
+    });
+  });
+
+  describe('joinGame', () => {
+    let events = null;
+    let socket = null;
+    let game = null;
+
+    beforeEach(() => {
+      gameRepository.clear();
+      playerRepository.clear();
+
+      socket = new MockSocket();
+      events = new SocketEvents(socket);
+
+      const owner = new Player(new MockSocket(), 'id');
+      game = new Game(owner);
+    });
+
+    test('it joins the game', () => {
+      events.initPlayer();
+
+      events.joinGame(game.id);
+
+      expect(socket.join).toHaveBeenCalledWith(`game/${game.id}/all`);
+      expect(socket.emit).toHaveBeenCalledWith('game.join', game.id);
+    });
+
+    test('it rejects if no player', () => {
+      events.joinGame(game.id);
+
+      expect(socket.emit).toHaveBeenCalledWith('generic.reject');
+    });
+
+    test('it rejects if no game', () => {
+      events.initPlayer();
+
+      events.joinGame('notgood');
+
+      expect(socket.emit).toHaveBeenCalledWith('game.join.reject');
     });
   });
 });

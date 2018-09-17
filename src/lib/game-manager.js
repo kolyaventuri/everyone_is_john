@@ -10,6 +10,7 @@ const GameManager = {
     if (!gameID) {
       return;
     }
+
     socket.emit('game.join', gameID);
   }
 };
