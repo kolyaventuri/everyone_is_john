@@ -2,6 +2,7 @@ import Game from '../../models/game';
 import Player from '../../models/player';
 import repos from '../../services/repositories';
 import MockSocket from '../helpers/mock-socket';
+import GameMode from '../../lib/game-mode';
 
 const {playerRepository, gameRepository} = repos;
 
@@ -146,5 +147,28 @@ describe('Game', () => {
     expect(player2Socket.emit).toHaveBeenCalledWith('event', 'data');
     expect(mockIo.emit).toHaveBeenCalledTimes(2);
     expect(player3Socket.emit).not.toHaveBeenCalled();
+  });
+
+  test('has a GameMode', () => {
+    expect(game.mode).toEqual(GameMode.SETUP);
+  });
+
+  test('has a GameMode string', () => {
+    expect(game.modeString).toEqual('SETUP');
+  });
+
+  test('can change GameMode', () => {
+    game.mode = GameMode.VOTING;
+
+    expect(game.mode).toEqual(GameMode.VOTING);
+    expect(game.modeString).toEqual('VOTING');
+  });
+
+  test('cannot set invalid GameMode', () => {
+    expect(game.mode).toEqual(GameMode.SETUP);
+
+    game.mode = Number.MAX_SAFE_INT;
+
+    expect(game.mode).toEqual(GameMode.SETUP);
   });
 });

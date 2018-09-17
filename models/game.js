@@ -1,6 +1,7 @@
 import Chance from 'chance';
 import Slug from '../lib/slug';
 import repos from '../services/repositories';
+import GameMode from '../lib/game-mode';
 
 const {gameRepository, playerRepository} = repos;
 
@@ -15,6 +16,8 @@ export default class Game {
 
     this._owner = owner.id;
     this._players = [];
+
+    this._mode = GameMode.SETUP;
 
     gameRepository.insert(this);
 
@@ -72,5 +75,24 @@ export default class Game {
     return this._players.map(id => {
       return playerRepository.find(id);
     });
+  }
+
+  get mode() {
+    return this._mode;
+  }
+
+  get modeString() {
+    const keys = Object.keys(GameMode);
+    return keys[this._mode - 1];
+  }
+
+  set mode(value) {
+    const keys = Object.keys(GameMode);
+
+    if (!value || !keys[value - 1]) {
+      return;
+    }
+
+    this._mode = value;
   }
 }
