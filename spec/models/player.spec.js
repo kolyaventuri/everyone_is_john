@@ -6,6 +6,8 @@ import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository} = repos;
 
+global.setTimeout = jest.fn();
+
 describe('Player', () => {
   let player = null;
   let socket = null;
@@ -52,6 +54,12 @@ describe('Player', () => {
 
     expect(player.active).toEqual(false);
     expect(player.timeoutStart).toBeInstanceOf(Date);
+  });
+
+  test('when they are deactivated a timeout is started to call destroy', () => {
+    player.deactivate();
+
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000 * 60);
   });
 
   test('can be reactivated', () => {

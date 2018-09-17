@@ -42,9 +42,14 @@ export default class Player {
     this._game = null;
   }
 
+  destroy() {
+  }
+
   deactivate() {
     this._active = false;
     this._timeoutStart = new Date();
+
+    setTimeout(this.destroy, 1000 * 60);
   }
 
   activate() {
