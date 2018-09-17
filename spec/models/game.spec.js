@@ -126,15 +126,15 @@ describe('Game', () => {
   });
 
   test('allows for emitting of events to entire room', () => {
-    const player1Socket = new MockSocket();
-    const player2Socket = new MockSocket();
+    const player1Socket = mockIo;
+    const player2Socket = mockIo;
     const player3Socket = new MockSocket();
 
     const player1 = new Player(player1Socket, 'a');
     const player2 = new Player(player2Socket, 'b');
     const player3 = new Player(player3Socket, 'c');
 
-    const game2 = new Game(mockIo, owner);
+    const game2 = new Game(new MockSocket(), owner);
 
     player1.joinGame(game.id);
     player2.joinGame(game.id);
@@ -144,6 +144,7 @@ describe('Game', () => {
 
     expect(player1Socket.emit).toHaveBeenCalledWith('event', 'data');
     expect(player2Socket.emit).toHaveBeenCalledWith('event', 'data');
+    expect(mockIo.emit).toHaveBeenCalledTimes(2);
     expect(player3Socket.emit).not.toHaveBeenCalled();
   });
 });
