@@ -21,9 +21,9 @@ export default class Game {
 
     gameRepository.insert(this);
 
-    this._roomPrefix = `game/${this._id}`;
+    this.roomPrefix = `game/${this._id}`;
 
-    const room = `${this._roomPrefix}/gm`;
+    const room = `${this.roomPrefix}/gm`;
 
     owner.socket.join(room);
   }
@@ -53,10 +53,11 @@ export default class Game {
     gameRepository.destroy(this);
   }
 
-  emitAll(event, data) {
-    const roomPrefix = this._roomPrefix;
+  emit(data) {
+    const {io, roomPrefix} = this;
+    const {channel, event, payload} = data;
 
-    this.io.in(`${roomPrefix}/all`).emit(event, data);
+    io.in(`${roomPrefix}/${channel}`).emit(event, payload);
   }
 
   get id() {

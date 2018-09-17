@@ -141,12 +141,32 @@ describe('Game', () => {
     player2.joinGame(game.id);
     player3.joinGame(game2.id);
 
-    game.emitAll('event', 'data');
+    game.emit({
+      channel: 'all',
+      event: 'event',
+      payload: 'data'
+    });
 
     expect(player1Socket.emit).toHaveBeenCalledWith('event', 'data');
     expect(player2Socket.emit).toHaveBeenCalledWith('event', 'data');
     expect(mockIo.emit).toHaveBeenCalledTimes(2);
     expect(player3Socket.emit).not.toHaveBeenCalled();
+  });
+
+  test('allows for emitting events to arbitrary channel', () => {
+    const player1Socket = mockIo;
+
+    const player1 = new Player(player1Socket, 'a');
+
+    player1.joinGame(game.id);
+
+    game.emit({
+      channel: `player/${player1.id}`,
+      event: 'tiger',
+      payload: 'siberia'
+    });
+
+    expect(player1Socket.emit).toHaveBeenCalledWith('tiger', 'siberia');
   });
 
   test('has a GameMode', () => {
