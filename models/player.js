@@ -43,6 +43,8 @@ export default class Player {
   }
 
   destroy() {
+    this.leaveGame();
+    playerRepository.destroy(this);
   }
 
   deactivate() {

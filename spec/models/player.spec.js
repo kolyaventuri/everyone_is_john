@@ -62,6 +62,18 @@ describe('Player', () => {
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000 * 60);
   });
 
+  test('can be destroyed', () => {
+    const owner = new Player(new MockSocket(), 'id');
+    const game = new Game(owner);
+
+    player.joinGame(game.id);
+
+    player.destroy();
+
+    expect(playerRepository.count).toEqual(1);
+    expect(game.players).toHaveLength(0);
+  });
+
   test('can be reactivated', () => {
     player.deactivate();
 
