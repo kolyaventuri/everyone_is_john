@@ -2,16 +2,23 @@ import Player from '../../models/player';
 import PlayerStat from '../../models/player-stat';
 import Game from '../../models/game';
 import repos from '../../services/repositories';
+import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository} = repos;
 
 describe('Player', () => {
   let player = null;
+  let socket = null;
 
   beforeEach(() => {
     playerRepository.clear();
 
-    player = new Player('some-random-id');
+    socket = new MockSocket();
+    player = new Player(socket, 'some-random-id');
+  });
+
+  test('has a socket', () => {
+    expect(player.socket).toEqual(socket);
   });
 
   test('has an ID', () => {
@@ -57,7 +64,7 @@ describe('Player', () => {
   });
 
   test('can join a game', () => {
-    const owner = new Player('id');
+    const owner = new Player(new MockSocket(), 'id');
     const game = new Game(owner);
 
     expect(game.players).toHaveLength(0);
@@ -69,6 +76,28 @@ describe('Player', () => {
 
     expect(player._game).toEqual(game.id);
     expect(player.game).toEqual(game);
+  });
+
+  test('is subscribed to the public room upon joining game', () => {
+    const owner = new Player(new MockSocket(), 'id');
+    const game = new Game(owner);
+
+    const room = `game/${game.id}/all`;
+
+    player.joinGame(game.id);
+
+    expect(player.socket.join).toHaveBeenCalledWith(room);
+  });
+
+  test('is subscribed to private channel upon joining a game', () => {
+    const owner = new Player(new MockSocket(), 'id');
+    const game = new Game(owner);
+
+    const room = `game/${game.id}/player/${player.id}`;
+
+    player.joinGame(game.id);
+
+    expect(player.socket.join).toHaveBeenCalledWith(room);
   });
 
   test('can have no game joined', () => {
@@ -84,7 +113,7 @@ describe('Player', () => {
   });
 
   test('cannot join a game if they are already in one', () => {
-    const owner = new Player('z');
+    const owner = new Player(new MockSocket(), 'z');
     const game = new Game(owner);
 
     player.joinGame(game.id);
@@ -97,7 +126,7 @@ describe('Player', () => {
   });
 
   test('can leave a game', () => {
-    const owner = new Player('z');
+    const owner = new Player(new MockSocket(), 'z');
     const game = new Game(owner);
 
     player.joinGame(game.id);

@@ -1,13 +1,17 @@
-const events = {};
+class MockSocket {
+  emit = jest.fn()
 
-const socket = {
-  emit: jest.fn(),
-  on: (name, fn) => {
-    events[name] = fn;
-  },
-  _trigger: (name, data) => {
-    events[name](data);
+  join = jest.fn()
+
+  events = {}
+
+  on(name, fn) {
+    this.events[name] = fn;
   }
-};
 
-export default socket;
+  _trigger(name, data) {
+    this.events[name](data);
+  }
+}
+
+export default MockSocket;

@@ -15,12 +15,24 @@ export default class Game {
     this._players = [];
 
     gameRepository.insert(this);
+
+    this._roomPrefix = `game/${this._id}`;
+
+    const room = `${this._roomPrefix}/gm`;
+
+    owner.socket.join(room);
   }
 
   addPlayer(player) {
     if (this._players.indexOf(player.id) < 0) {
       this._players.push(player.id);
     }
+
+    const room = `game/${this.id}/all`;
+    const privateRoom = `game/${this.id}/player/${player.id}`;
+
+    player.socket.join(room);
+    player.socket.join(privateRoom);
   }
 
   kickPlayer(player) {
@@ -30,6 +42,10 @@ export default class Game {
     }
 
     this._players.splice(index, 1);
+  }
+
+  destroy() {
+    gameRepository.destroy(this);
   }
 
   get id() {

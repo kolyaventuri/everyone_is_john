@@ -1,14 +1,16 @@
 import SocketEvents from '../../lib/socket-events';
 import Player from '../../models/player';
+import Game from '../../models/game';
 
 import repos from '../../services/repositories';
-import socket from '../helpers/mock-socket';
+import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository, gameRepository} = repos;
 
 describe('SocketEvents', () => {
   describe('connect', () => {
     test('emits a turtle event', () => {
+      const socket = new MockSocket();
       const events = new SocketEvents(socket);
 
       events.connect();
@@ -19,6 +21,7 @@ describe('SocketEvents', () => {
 
   describe('initPlayer', () => {
     let events = null;
+    const socket = new MockSocket();
 
     beforeEach(() => {
       playerRepository.clear();
@@ -78,12 +81,12 @@ describe('SocketEvents', () => {
 
   describe('createGame', () => {
     let events = null;
+    const socket = new MockSocket();
 
     beforeEach(() => {
       gameRepository.clear();
       playerRepository.clear();
 
-      delete socket.player;
       events = new SocketEvents(socket);
     });
 
@@ -106,6 +109,46 @@ describe('SocketEvents', () => {
       const game = gameRepository.all()[0];
 
       expect(socket.emit).toHaveBeenCalledWith('game.initiate', game.id);
+    });
+  });
+
+  describe('joinGame', () => {
+    let events = null;
+    let socket = null;
+    let game = null;
+
+    beforeEach(() => {
+      gameRepository.clear();
+      playerRepository.clear();
+
+      socket = new MockSocket();
+      events = new SocketEvents(socket);
+
+      const owner = new Player(new MockSocket(), 'id');
+      game = new Game(owner);
+    });
+
+    test('it joins the game', () => {
+      events.initPlayer();
+
+      events.joinGame(game.id);
+
+      expect(socket.join).toHaveBeenCalledWith(`game/${game.id}/all`);
+      expect(socket.emit).toHaveBeenCalledWith('game.join', game.id);
+    });
+
+    test('it rejects if no player', () => {
+      events.joinGame(game.id);
+
+      expect(socket.emit).toHaveBeenCalledWith('generic.reject');
+    });
+
+    test('it rejects if no game', () => {
+      events.initPlayer();
+
+      events.joinGame('notgood');
+
+      expect(socket.emit).toHaveBeenCalledWith('game.join.reject');
     });
   });
 });

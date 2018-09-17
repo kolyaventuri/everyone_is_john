@@ -20,4 +20,16 @@ export default class SocketEvents {
   rejectInitGame() {
     window.location.assign('/');
   }
+
+  joinGame(id) {
+    window.location.assign(`/game/${id}`);
+  }
+
+  rejectJoin() {
+    window.showError('Game does not exist.');
+  }
+
+  genericReject() {
+    window.location.assign('/');
+  }
 }
