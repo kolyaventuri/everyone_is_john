@@ -64,7 +64,8 @@ describe('Player', () => {
 
   test('can be destroyed', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     player.joinGame(game.id);
 
@@ -85,7 +86,8 @@ describe('Player', () => {
 
   test('can join a game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     expect(game.players).toHaveLength(0);
 
@@ -100,7 +102,8 @@ describe('Player', () => {
 
   test('is subscribed to the public room upon joining game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     const room = `game/${game.id}/all`;
 
@@ -111,7 +114,8 @@ describe('Player', () => {
 
   test('is subscribed to private channel upon joining a game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     const room = `game/${game.id}/player/${player.id}`;
 
@@ -134,7 +138,8 @@ describe('Player', () => {
 
   test('cannot join a game if they are already in one', () => {
     const owner = new Player(new MockSocket(), 'z');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     player.joinGame(game.id);
 
@@ -147,7 +152,8 @@ describe('Player', () => {
 
   test('can leave a game', () => {
     const owner = new Player(new MockSocket(), 'z');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     player.joinGame(game.id);
 

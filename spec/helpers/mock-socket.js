@@ -13,15 +13,15 @@ class MockSocket {
   // eslint-disable-next-line no-useless-constructor
   constructor() {}
 
-  in = jest.fn(name => {
+  in = name => {
     return {
-      emit: jest.fn((event, data) => {
+      emit: (event, data) => {
         for (const client of this.rooms[name]) {
           client.emit(event, data);
         }
-      })
+      }
     };
-  })
+  }
 
   on(name, fn) {
     this.events[name] = fn;
