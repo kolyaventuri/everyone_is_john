@@ -7,6 +7,8 @@ const {gameRepository, playerRepository} = repos;
 
 const chance = new Chance();
 
+const gameModeRegex = /^Symbol\(GM_(.*)\)$/;
+
 export default class Game {
   constructor(io, owner) {
     this.io = io;
@@ -83,14 +85,15 @@ export default class Game {
   }
 
   get modeString() {
-    const keys = Object.keys(GameMode);
-    return keys[this._mode - 1];
+    const string = this.mode.toString().match(gameModeRegex)[1];
+
+    return string;
   }
 
   set mode(value) {
-    const keys = Object.keys(GameMode);
+    const newMode = Object.values(GameMode).find(m => m === value);
 
-    if (!value || !keys[value - 1]) {
+    if (!newMode) {
       return;
     }
 
