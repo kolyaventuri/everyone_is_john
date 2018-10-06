@@ -10,12 +10,14 @@ describe('GameMode', () => {
   let game = null;
   let owner = null;
   let mockIo = null;
+  let player = null;
 
   beforeEach(() => {
     playerRepository.clear();
     gameRepository.clear();
 
     owner = new Player(new MockSocket(), 'id');
+    player = new Player(new MockSocket(), '1');
 
     mockIo = new MockSocket();
 
@@ -25,8 +27,6 @@ describe('GameMode', () => {
   test('SETUP allows users to join the game', () => {
     game.mode = GameMode.SETUP;
 
-    const player = new Player(new MockSocket(), '1');
-
     const result = game.addPlayer(player);
 
     expect(result).toBeTruthy();
@@ -34,8 +34,6 @@ describe('GameMode', () => {
   });
 
   test('Non-SETUP disallows users to join', () => {
-    const player = new Player(new MockSocket(), '1');
-
     // VOTING mode
     game.mode = GameMode.VOTING;
     const resultVoting = game.addPlayer(player);
@@ -53,5 +51,10 @@ describe('GameMode', () => {
     const resultLocked = game.addPlayer(player);
     expect(resultLocked).toBeFalsy();
     expect(game.players).toHaveLength(0);
+  });
+
+  test.skip('Bidding is allowed in VOTING state', () => {
+    game.addPlayer(player);
+    game.mode = GameMode.VOTING;
   });
 });
