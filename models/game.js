@@ -31,6 +31,10 @@ export default class Game {
   }
 
   addPlayer(player) {
+    if (this.mode !== GameMode.SETUP) {
+      return false;
+    }
+
     if (this._players.indexOf(player.id) < 0) {
       this._players.push(player.id);
     }
@@ -40,6 +44,8 @@ export default class Game {
 
     player.socket.join(room);
     player.socket.join(privateRoom);
+
+    return player;
   }
 
   kickPlayer(player) {
