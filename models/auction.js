@@ -23,7 +23,7 @@ export default class Auction {
   }
 
   bid(player, bid) {
-    if (player.stats.willpower < bid) {
+    if (player.stats.willpower < bid || bid < 0) {
       return false;
     }
 

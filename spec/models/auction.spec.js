@@ -61,4 +61,12 @@ describe('Auction', () => {
     expect(auction.winner).toBeDefined();
     expect(auction.winner).toEqual(playerB);
   });
+
+  test('disallows < 0 value bids', () => {
+    const [player] = players;
+
+    const result = auction.bid(player, -1);
+
+    expect(result).toEqual(false);
+  });
 });
