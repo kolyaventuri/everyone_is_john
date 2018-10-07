@@ -33,6 +33,10 @@ export default class PlayerStat {
     }
 
     this._skills[number - 1] = value;
+
+    if (number === 3) {
+      this.willpower -= 3;
+    }
   }
 
   get points() {
