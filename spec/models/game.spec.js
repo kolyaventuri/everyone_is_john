@@ -75,6 +75,14 @@ describe('Game', () => {
     expect(game.players).toHaveLength(1);
   });
 
+  test('sets game variable on player', () => {
+    const player = new Player(new MockSocket(), 'a');
+
+    game.addPlayer(player);
+
+    expect(player._game).toEqual(game._id);
+  });
+
   test('player added is joine to game/:id/all room', () => {
     const socket = new MockSocket();
     const player = new Player(socket, 'a');

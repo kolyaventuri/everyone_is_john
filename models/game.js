@@ -48,6 +48,8 @@ export default class Game {
     player.socket.join(room);
     player.socket.join(privateRoom);
 
+    player.setGame(this._id);
+
     return player;
   }
 

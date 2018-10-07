@@ -109,13 +109,39 @@ describe('GameMode', () => {
   });
 
   describe('Goals', () => {
+    const goal = 'Random goal.';
+
     test('can be set during SETUP state', () => {
       game.addPlayer(player);
       game.mode = SETUP;
+      const result = player.setGoal(goal);
 
-      const result = player.setGoal('Random goal.');
+      expect(result).toEqual(goal);
+    });
 
-      expect(result).toBeTruthy();
+    test('can not be set during non-SETUP states', () => {
+      game.addPlayer(player);
+
+      // VOTING
+      game.mode = VOTING;
+      const resultVoting = player.setGoal(goal);
+      expect(resultVoting).toBeFalsy();
+
+      // PLAYING
+      game.mode = PLAYING;
+      const resultPlaying = player.setGoal(goal);
+      expect(resultPlaying).toBeFalsy();
+
+      // LOCKED
+      game.mode = LOCKED;
+      const resultLocked = player.setGoal(goal);
+      expect(resultLocked).toBeFalsy();
+    });
+
+    test('can not be set if no game is active', () => {
+      const result = player.setGoal(goal);
+
+      expect(result).toBeFalsy();
     });
   });
 });
