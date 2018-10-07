@@ -1,6 +1,7 @@
 import Chance from 'chance';
 import uuidv1 from 'uuid/v4';
 import repos from '../services/repositories';
+import GameMode from '../lib/game-mode';
 import PlayerStat from './player-stat';
 
 const {playerRepository, gameRepository} = repos;
@@ -36,6 +37,10 @@ export default class Player {
     this._game = gameId;
   }
 
+  setGame(gameId) {
+    this._game = gameId;
+  }
+
   leaveGame() {
     this.game.kickPlayer(this);
 
@@ -57,6 +62,19 @@ export default class Player {
   activate() {
     this._active = true;
     this._timeoutStart = null;
+  }
+
+  setGoal(goal) {
+    if (!this.game) {
+      return false;
+    }
+
+    if (this.game.mode === GameMode.SETUP) {
+      this.stats.goal = goal;
+      return goal;
+    }
+
+    return false;
   }
 
   get id() {

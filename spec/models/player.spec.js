@@ -166,4 +166,10 @@ describe('Player', () => {
   test('has player stats', () => {
     expect(player.stats).toBeInstanceOf(PlayerStat);
   });
+
+  test('can set game', () => {
+    player.setGame(1);
+
+    expect(player._game).toEqual(1);
+  });
 });
