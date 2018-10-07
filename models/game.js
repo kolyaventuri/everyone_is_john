@@ -2,6 +2,7 @@ import Chance from 'chance';
 import Slug from '../lib/slug';
 import repos from '../services/repositories';
 import GameMode from '../lib/game-mode';
+import Auction from './auction';
 
 const {gameRepository, playerRepository} = repos;
 
@@ -10,6 +11,8 @@ const chance = new Chance();
 const gameModeRegex = /^Symbol\(GM_(.*)\)$/;
 
 export default class Game {
+  auction = null
+
   constructor(io, owner) {
     this.io = io;
 
@@ -68,6 +71,20 @@ export default class Game {
     io.in(`${roomPrefix}/${channel}`).emit(event, payload);
   }
 
+  addBid(player, bid) {
+    if (this.mode === GameMode.VOTING) {
+      const bidResult = this.auction.bid(player, bid);
+
+      if (bidResult === false) {
+        return false;
+      }
+
+      return bid;
+    }
+
+    return false;
+  }
+
   get id() {
     return this._id;
   }
@@ -104,5 +121,11 @@ export default class Game {
     }
 
     this._mode = value;
+
+    if (this._mode === GameMode.VOTING) {
+      this.auction = new Auction(this.players);
+    } else {
+      this.auction = null;
+    }
   }
 }
