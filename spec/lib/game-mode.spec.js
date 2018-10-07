@@ -138,8 +138,46 @@ describe('GameMode', () => {
       expect(resultLocked).toBeFalsy();
     });
 
-    test('can not be set if no game is active', () => {
+    test('cannot be set if no game is active', () => {
       const result = player.setGoal(goal);
+
+      expect(result).toBeFalsy();
+    });
+  });
+
+  describe('Skills', () => {
+    const skill = 'Random skill.';
+
+    test('can be set during SETUP state', () => {
+      game.addPlayer(player);
+      game.mode = SETUP;
+
+      const result = player.setSkill(1, skill);
+
+      expect(result).toEqual(skill);
+    });
+
+    test('cannot be set during non-SETUP state', () => {
+      game.addPlayer(player);
+
+      // VOTING
+      game.mode = VOTING;
+      const resultVoting = player.setSkill(1, skill);
+      expect(resultVoting).toBeFalsy();
+
+      // PLAYING
+      game.mode = PLAYING;
+      const resultPlaying = player.setSkill(1, skill);
+      expect(resultPlaying).toBeFalsy();
+
+      // LOCKED
+      game.mode = LOCKED;
+      const resultLocked = player.setSkill(1, skill);
+      expect(resultLocked).toBeFalsy();
+    });
+
+    test('cannot be set if no game is active', () => {
+      const result = player.setSkill(1, skill);
 
       expect(result).toBeFalsy();
     });

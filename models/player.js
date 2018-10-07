@@ -77,6 +77,19 @@ export default class Player {
     return false;
   }
 
+  setSkill(number, skill) {
+    if (!this.game) {
+      return false;
+    }
+
+    if (this.game.mode === GameMode.SETUP) {
+      this.stats.setSkill(number, skill);
+      return skill;
+    }
+
+    return false;
+  }
+
   get id() {
     return this._id;
   }
