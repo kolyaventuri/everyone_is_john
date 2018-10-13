@@ -10,8 +10,9 @@ const {playerRepository, gameRepository} = repos;
 describe('SocketEvents', () => {
   describe('connect', () => {
     test('emits a turtle event', () => {
+      const mockIo = new MockSocket();
       const socket = new MockSocket();
-      const events = new SocketEvents(socket);
+      const events = new SocketEvents(mockIo, socket);
 
       events.connect();
 
@@ -22,10 +23,11 @@ describe('SocketEvents', () => {
   describe('initPlayer', () => {
     let events = null;
     const socket = new MockSocket();
+    const io = new MockSocket();
 
     beforeEach(() => {
       playerRepository.clear();
-      events = new SocketEvents(socket);
+      events = new SocketEvents(io, socket);
     });
 
     test('creates a new player when no ID supplied', () => {
@@ -81,13 +83,14 @@ describe('SocketEvents', () => {
 
   describe('createGame', () => {
     let events = null;
+    const io = new MockSocket();
     const socket = new MockSocket();
 
     beforeEach(() => {
       gameRepository.clear();
       playerRepository.clear();
 
-      events = new SocketEvents(socket);
+      events = new SocketEvents(io, socket);
     });
 
     test('it rejects if no player exists', () => {
@@ -115,6 +118,7 @@ describe('SocketEvents', () => {
   describe('joinGame', () => {
     let events = null;
     let socket = null;
+    let io = null;
     let game = null;
 
     beforeEach(() => {
@@ -122,10 +126,11 @@ describe('SocketEvents', () => {
       playerRepository.clear();
 
       socket = new MockSocket();
-      events = new SocketEvents(socket);
+      io = new MockSocket();
+      events = new SocketEvents(io, socket);
 
       const owner = new Player(new MockSocket(), 'id');
-      game = new Game(owner);
+      game = new Game(io, owner);
     });
 
     test('it joins the game', () => {

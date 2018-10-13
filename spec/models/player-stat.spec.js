@@ -76,6 +76,17 @@ describe('PlayerStat', () => {
     expect(stat.skills).toEqual(['a', 'b', 'c']);
   });
 
+  test('3rd skill reduces willpower by 3', () => {
+    stat.setSkill(1, 'a');
+    stat.setSkill(2, 'b');
+
+    expect(stat.willpower).toEqual(10);
+
+    stat.setSkill(3, 'c');
+
+    expect(stat.willpower).toEqual(7);
+  });
+
   test('cannot set out of bounds skill', () => {
     const fn = () => {
       stat.setSkill(0, 'a');

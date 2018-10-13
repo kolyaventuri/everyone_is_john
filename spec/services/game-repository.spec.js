@@ -8,7 +8,8 @@ describe('GameRepository', () => {
     const repo = new GameRepository();
 
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     repo.insert(game);
 

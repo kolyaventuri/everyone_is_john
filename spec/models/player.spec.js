@@ -6,6 +6,8 @@ import MockSocket from '../helpers/mock-socket';
 
 const {playerRepository} = repos;
 
+global.setTimeout = jest.fn();
+
 describe('Player', () => {
   let player = null;
   let socket = null;
@@ -54,6 +56,25 @@ describe('Player', () => {
     expect(player.timeoutStart).toBeInstanceOf(Date);
   });
 
+  test('when they are deactivated a timeout is started to call destroy', () => {
+    player.deactivate();
+
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000 * 60);
+  });
+
+  test('can be destroyed', () => {
+    const owner = new Player(new MockSocket(), 'id');
+    const io = new MockSocket();
+    const game = new Game(io, owner);
+
+    player.joinGame(game.id);
+
+    player.destroy();
+
+    expect(playerRepository.count).toEqual(1);
+    expect(game.players).toHaveLength(0);
+  });
+
   test('can be reactivated', () => {
     player.deactivate();
 
@@ -65,7 +86,8 @@ describe('Player', () => {
 
   test('can join a game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     expect(game.players).toHaveLength(0);
 
@@ -80,7 +102,8 @@ describe('Player', () => {
 
   test('is subscribed to the public room upon joining game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     const room = `game/${game.id}/all`;
 
@@ -91,7 +114,8 @@ describe('Player', () => {
 
   test('is subscribed to private channel upon joining a game', () => {
     const owner = new Player(new MockSocket(), 'id');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     const room = `game/${game.id}/player/${player.id}`;
 
@@ -114,7 +138,8 @@ describe('Player', () => {
 
   test('cannot join a game if they are already in one', () => {
     const owner = new Player(new MockSocket(), 'z');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     player.joinGame(game.id);
 
@@ -127,7 +152,8 @@ describe('Player', () => {
 
   test('can leave a game', () => {
     const owner = new Player(new MockSocket(), 'z');
-    const game = new Game(owner);
+    const io = new MockSocket();
+    const game = new Game(io, owner);
 
     player.joinGame(game.id);
 
@@ -139,5 +165,11 @@ describe('Player', () => {
 
   test('has player stats', () => {
     expect(player.stats).toBeInstanceOf(PlayerStat);
+  });
+
+  test('can set game', () => {
+    player.setGame(1);
+
+    expect(player._game).toEqual(1);
   });
 });
