@@ -122,6 +122,7 @@
         "globals": [
           "jest",
           "test",
+          "xtest",
           "expect",
           "describe",
           "beforeAll",
