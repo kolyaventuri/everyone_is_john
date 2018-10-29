@@ -10,6 +10,7 @@ import SocketHandler from './lib/socket-handler';
 
 import webpackDevServer from './webpack/dev-server';
 import index from './routes';
+import loggerRoute from './routes/logger';
 
 const app = express();
 const debugLogger = debug('everyone-is-john:app');
@@ -32,6 +33,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/__logger__', loggerRoute);
 app.use('/', index);
 
 // Catch 404 and forward to error handler
