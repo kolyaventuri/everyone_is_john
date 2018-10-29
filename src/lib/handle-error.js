@@ -8,9 +8,8 @@ const headers = {
 const handleError = err => {
   const body = JSON.stringify({err});
 
+  console.error(err);
   fetch(urls.ERROR_LOGGER, Object.assign({body}, headers))
-    .then(response => response.json())
-    .then(json => console.log(json))
     .catch(error => console.error(error));
 };
 
