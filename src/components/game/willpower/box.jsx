@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import Color from '../../../lib/color';
+import Number from './number.jsx';
 
 const initialColors = [
   [0, 100, 50],
@@ -34,6 +36,10 @@ export default class Box extends React.Component {
       background-color: ${background};
     `;
 
-    return <Container/>;
+    return (
+      <Container>
+        <Number value={this.props.value}/>
+      </Container>
+    );
   }
 }

@@ -27,4 +27,11 @@ describe('<Box/>', () => {
   test('sets CSS background color', () => {
     expect(wrapper).toHaveStyleRule('background-color', expectedStyle);
   });
+
+  test('contains the willpower number in the component', () => {
+    const numbers = wrapper.find('Number');
+
+    expect(numbers).toHaveLength(1);
+    expect(wrapper.text()).toContain(value);
+  });
 });
