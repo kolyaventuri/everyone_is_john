@@ -5,8 +5,6 @@ import GameManager from '../lib/game-manager';
 
 export default class GameWindow extends React.Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
   }
 
