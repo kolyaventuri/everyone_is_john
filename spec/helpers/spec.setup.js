@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unassigned-import
+import 'jest-styled-components';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

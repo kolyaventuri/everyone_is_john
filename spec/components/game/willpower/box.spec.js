@@ -15,7 +15,7 @@ describe('<Box/>', () => {
     max = 10;
     value = 8;
     expectedColor = [96, 100, 50]; // 120 * 80% = 96
-    expectedStyle = 'hsl(96, 100%, 50%)';
+    expectedStyle = 'hsl(96,100%,50%)';
 
     wrapper = mount(<SliderBox value={value} max={max}/>);
   });
@@ -25,9 +25,6 @@ describe('<Box/>', () => {
   });
 
   test('sets CSS background color', () => {
-    const rendered = wrapper.render();
-
-    expect(rendered).toHaveProperty('0.attribs.style');
-    expect(rendered[0].attribs.style).toEqual(expectedStyle);
+    expect(wrapper).toHaveStyleRule('background-color', expectedStyle);
   });
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Color from '../../../lib/color';
 
 const initialColors = [
@@ -29,6 +30,10 @@ export default class Box extends React.Component {
   render() {
     const [h, s, l] = this.state.bgColor;
     const background = `hsl(${h}, ${s}%, ${l}%)`;
-    return <div style={{background}}/>;
+    const Container = styled.div`
+      background-color: ${background};
+    `;
+
+    return <Container/>;
   }
 }

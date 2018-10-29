@@ -52,6 +52,7 @@
     "serve-favicon": "^2.4.3",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
+    "styled-components": "^4.0.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -69,6 +70,7 @@
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
     "jest-enzyme": "^6.0.4",
+    "jest-styled-components": "^6.2.2",
     "jsdom": "^12.0.0",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
