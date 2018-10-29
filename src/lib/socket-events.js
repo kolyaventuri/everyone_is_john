@@ -23,21 +23,21 @@ export default class SocketEvents {
     window.location.assign(`/game/${id}`);
   }
 
-  rejectInitGame({err}) {
+  rejectInitGame({err} = {}) {
     if (err) {
       handleError(err);
     }
     window.location.assign('/');
   }
 
-  rejectJoin({err}) {
+  rejectJoin({err} = {}) {
     if (err) {
       handleError(err);
     }
     window.showError('Game does not exist.');
   }
 
-  genericReject({err}) {
+  genericReject({err} = {}) {
     if (err) {
       handleError(err);
     }

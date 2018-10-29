@@ -4,9 +4,14 @@ import MockSocket from '../../helpers/mock-socket';
 
 const {JSDOM} = jsdom;
 
+const mockHandleError = jest.fn();
+jest.mock('../../../src/lib/handle-error', () => {
+});
+
 describe('SocketEvents', () => {
   let events = null;
   let socket = null;
+  let err;
 
   global.window = new JSDOM('', {url: 'http://localhost'}).window;
   window.location.assign = jest.fn();
@@ -15,6 +20,7 @@ describe('SocketEvents', () => {
   beforeAll(() => {
     events = new SocketEvents();
     socket = new MockSocket();
+    err = {err: 'ERROR_NAME'};
   });
 
   describe('initPlayer', () => {
@@ -64,7 +70,7 @@ describe('SocketEvents', () => {
 
   describe('rejectJoin', () => {
     test('it triggers an error message', () => {
-      events.rejectJoin();
+      events.rejectJoin(err);
 
       expect(window.showError).toHaveBeenCalled();
     });
@@ -82,7 +88,7 @@ describe('SocketEvents', () => {
 
   describe('genericReject', () => {
     test('sends the user back to /', () => {
-      events.genericReject();
+      events.genericReject(err);
 
       expect(window.location.assign).toHaveBeenCalledWith('/');
     });
