@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client?path=/reload=true',
+    'webpack-hot-middleware/client?path=/__webpack_hmr',
     path.join(process.cwd(), 'src/index.js')
   ],
   module: {

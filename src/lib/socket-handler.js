@@ -1,6 +1,6 @@
 import SocketEvents from './socket-events';
 
-class SocketHandler {
+export default class SocketHandler {
   constructor(socket, gm) {
     this.socket = socket;
     this.event = new SocketEvents(gm);
@@ -30,5 +30,3 @@ class SocketHandler {
     socket.on('game.join.reject', event.joinReject);
   }
 }
-
-export default SocketHandler;
