@@ -4,8 +4,11 @@ import MockSocket from '../../helpers/mock-socket';
 
 const {JSDOM} = jsdom;
 
-const mockHandleError = jest.fn();
+let mockHandleError;
+
 jest.mock('../../../src/lib/handle-error', () => {
+  mockHandleError = jest.fn();
+  return mockHandleError;
 });
 
 describe('SocketEvents', () => {
@@ -62,9 +65,10 @@ describe('SocketEvents', () => {
 
   describe('rejectInitGame', () => {
     test('it sends the user back to the index', () => {
-      events.rejectInitGame();
+      events.rejectInitGame(err);
 
       expect(window.location.assign).toHaveBeenCalledWith('/');
+      expect(mockHandleError).toHaveBeenCalledWith(err.err);
     });
   });
 
@@ -73,6 +77,7 @@ describe('SocketEvents', () => {
       events.rejectJoin(err);
 
       expect(window.showError).toHaveBeenCalled();
+      expect(mockHandleError).toHaveBeenCalledWith(err.err);
     });
   });
 
@@ -91,6 +96,7 @@ describe('SocketEvents', () => {
       events.genericReject(err);
 
       expect(window.location.assign).toHaveBeenCalledWith('/');
+      expect(mockHandleError).toHaveBeenCalledWith(err.err);
     });
   });
 });
