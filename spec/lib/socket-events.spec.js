@@ -5,6 +5,8 @@ import Game from '../../models/game';
 import repos from '../../services/repositories';
 import MockSocket from '../helpers/mock-socket';
 
+import errors from '../../lib/common/error-ids';
+
 const {playerRepository, gameRepository} = repos;
 
 describe('SocketEvents', () => {
@@ -96,7 +98,7 @@ describe('SocketEvents', () => {
     test('it rejects if no player exists', () => {
       events.createGame();
 
-      expect(socket.emit).toHaveBeenCalledWith('game.initiate.reject');
+      expect(socket.emit).toHaveBeenCalledWith('game.initiate.reject', {err: errors.DID_NOT_FIND_PLAYER});
     });
 
     test('it creates a game', () => {
@@ -145,7 +147,7 @@ describe('SocketEvents', () => {
     test('it rejects if no player', () => {
       events.joinGame(game.id);
 
-      expect(socket.emit).toHaveBeenCalledWith('generic.reject');
+      expect(socket.emit).toHaveBeenCalledWith('generic.reject', {err: errors.DID_NOT_FIND_PLAYER});
     });
 
     test('it rejects if no game', () => {
@@ -153,7 +155,7 @@ describe('SocketEvents', () => {
 
       events.joinGame('notgood');
 
-      expect(socket.emit).toHaveBeenCalledWith('game.join.reject');
+      expect(socket.emit).toHaveBeenCalledWith('game.join.reject', {err: errors.DID_NOT_FIND_GAME});
     });
   });
 });
