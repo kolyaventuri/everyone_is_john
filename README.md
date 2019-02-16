@@ -1,4 +1,5 @@
 # Everyone Is John
+[![CircleCI](https://circleci.com/gh/kolyaventuri/everyone_is_john.svg?style=svg)](https://circleci.com/gh/kolyaventuri/everyone_is_john)
 _This is a React reimplementation of the original web client by Vynlar (https://github.com/Vynlar/Everyone-is-John)_
 
 [![Build Status](https://travis-ci.com/kolyaventuri/everyone_is_john.svg?branch=master)](https://travis-ci.com/kolyaventuri/everyone_is_john) [![Coverage Status](https://coveralls.io/repos/github/kolyaventuri/everyone_is_john/badge.svg?branch=master)](https://coveralls.io/github/kolyaventuri/everyone_is_john?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
