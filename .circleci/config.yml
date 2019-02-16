@@ -12,7 +12,7 @@ jobs:
           command: 'npm install'
       - run:
           name: lint
-          command: 'npm lint'
+          command: 'npm run lint'
       - run:
           name: test
           command: 'node ./node_modules/jest/bin/jest.js --coverage'
